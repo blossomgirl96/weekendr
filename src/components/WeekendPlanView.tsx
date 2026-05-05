@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, Lightbulb, ArrowLeft, Download, CloudRain, ShieldCheck, Diamond, Loader2 } from 'lucide-react';
+import { Calendar, Lightbulb, ArrowLeft, Download, CloudRain, ShieldCheck, Sun, Loader2 } from 'lucide-react';
 import { WeekendPlan, DayPlan } from '../types';
 import { ActivityCard } from './ActivityCard';
 import { motion } from 'motion/react';
@@ -10,38 +10,39 @@ interface Props {
   onBack: () => void;
 }
 
-function DaySection({ day, plan, color, isSunday }: { day: string, plan: DayPlan, color: 'orange' | 'blue', isSunday?: boolean }) {
-  const colorClass = color === 'orange' ? 'bg-orange-500 shadow-orange-200' : 'bg-blue-500 shadow-blue-200';
-  
+function DaySection({ day, plan, color, isSunday }: { day: string, plan: DayPlan, color: 'terracotta' | 'pine', isSunday?: boolean }) {
+  const bgClass = color === 'terracotta'
+    ? 'bg-terracotta-500 shadow-terracotta-100'
+    : 'bg-pine-500 shadow-pine-100';
+
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="flex flex-col"
     >
       <div className="flex items-center gap-3 mb-8">
-        <div className={`w-12 h-12 ${colorClass} rounded-2xl flex items-center justify-center text-white shadow-lg`}>
+        <div className={`w-12 h-12 ${bgClass} rounded-2xl flex items-center justify-center text-cream-50 shadow-lg`}>
           <Calendar className="w-6 h-6" />
         </div>
         <div>
-          <h2 className="text-3xl font-black text-gray-800">{day}</h2>
-          <p className="text-gray-500">{isSunday ? 'Making memories.' : 'Adventure awaits!'}</p>
+          <h2 className="text-3xl font-black text-ink-700">{day}</h2>
+          <p className="text-ink-400 text-sm">{isSunday ? 'Making memories.' : 'Adventure awaits.'}</p>
         </div>
       </div>
-      
+
       <div className="space-y-8">
         {plan.primary.map((activity, idx) => (
           <ActivityCard key={idx} activity={activity} index={idx} />
         ))}
       </div>
 
-      {/* Plan B Section */}
-      <div className="mt-12 p-8 bg-gray-50 rounded-[2.5rem] border border-dashed border-gray-200">
-        <div className="flex items-center gap-2 mb-6">
-          <ShieldCheck className="w-5 h-5 text-gray-400" />
-          <h3 className="text-lg font-bold text-gray-500 uppercase tracking-wider">Plan B: Indoor Fallbacks</h3>
+      <div className="mt-10 p-6 bg-cream-100 rounded-[20px] border border-dashed border-cream-300">
+        <div className="flex items-center gap-2 mb-5">
+          <ShieldCheck className="w-5 h-5 text-ink-400" />
+          <h3 className="text-sm font-bold text-ink-400 uppercase tracking-wider">Plan B — indoor fallbacks</h3>
         </div>
-        <div className="grid grid-cols-1 gap-6">
+        <div className="grid grid-cols-1 gap-5">
           {plan.planB.map((activity, idx) => (
             <ActivityCard key={`planB-${idx}`} activity={activity} index={idx} />
           ))}
@@ -56,22 +57,21 @@ export function WeekendPlanView({ plan, onBack }: Props) {
 
   const handleDownloadPDF = async () => {
     setIsExporting(true);
-    
+
     try {
       const doc = new jsPDF('p', 'mm', 'a4');
       const margin = 20;
       let y = 25;
       const pageWidth = doc.internal.pageSize.getWidth();
-      
-      // Header
-      doc.setFillColor(249, 115, 22); // Orange-500
+
+      doc.setFillColor(216, 95, 42); // Terracotta-500
       doc.rect(0, 0, pageWidth, 40, 'F');
-      
-      doc.setTextColor(255, 255, 255);
+
+      doc.setTextColor(251, 247, 241);
       doc.setFontSize(24);
       doc.setFont('helvetica', 'bold');
-      doc.text('WEEKNDR ITINERARY', margin, 25);
-      
+      doc.text('WEEKENDR ITINERARY', margin, 25);
+
       doc.setFontSize(10);
       doc.setFont('helvetica', 'normal');
       doc.text(`Generated on ${new Date().toLocaleDateString()}`, margin, 32);
@@ -82,23 +82,22 @@ export function WeekendPlanView({ plan, onBack }: Props) {
           y = 30;
         }
 
-        doc.setTextColor(31, 41, 55);
+        doc.setTextColor(26, 20, 14);
         doc.setFontSize(14);
         doc.setFont('helvetica', 'bold');
         doc.text(activity.title, x, y);
         y += 7;
 
-        doc.setTextColor(107, 114, 128);
+        doc.setTextColor(92, 84, 71);
         doc.setFontSize(10);
         doc.setFont('helvetica', 'normal');
         const desc = doc.splitTextToSize(activity.description, (pageWidth / 2) - 30);
         doc.text(desc, x, y);
         y += (desc.length * 5) + 5;
 
-        // Details
         doc.setFontSize(9);
         doc.setFont('helvetica', 'bold');
-        doc.text(`Drive Time: ${activity.driveTime}`, x, y);
+        doc.text(`Drive time: ${activity.driveTime}`, x, y);
         y += 5;
         doc.text(`Entry: ${activity.cost.entry}`, x, y);
         y += 5;
@@ -106,25 +105,23 @@ export function WeekendPlanView({ plan, onBack }: Props) {
         y += 10;
       };
 
-      // Saturday
       y = 55;
-      doc.setTextColor(234, 88, 12);
+      doc.setTextColor(216, 95, 42);
       doc.setFontSize(18);
       doc.setFont('helvetica', 'bold');
       doc.text('SATURDAY', margin, y);
       y += 15;
 
       plan.saturday.primary.forEach(activity => addActivity(activity, margin));
-      
-      // Sunday
+
       if (y > 200) {
         doc.addPage();
         y = 30;
       } else {
         y += 10;
       }
-      
-      doc.setTextColor(37, 99, 235);
+
+      doc.setTextColor(44, 94, 42);
       doc.setFontSize(18);
       doc.setFont('helvetica', 'bold');
       doc.text('SUNDAY', margin, y);
@@ -132,23 +129,22 @@ export function WeekendPlanView({ plan, onBack }: Props) {
 
       plan.sunday.primary.forEach(activity => addActivity(activity, margin));
 
-      // Tips
       if (y > 220) {
         doc.addPage();
         y = 30;
       } else {
         y += 15;
       }
-      
-      doc.setFillColor(243, 244, 246);
+
+      doc.setFillColor(246, 239, 227);
       doc.rect(margin - 5, y - 10, pageWidth - (margin * 2) + 10, 60, 'F');
-      
-      doc.setTextColor(31, 41, 55);
+
+      doc.setTextColor(26, 20, 14);
       doc.setFontSize(16);
       doc.setFont('helvetica', 'bold');
-      doc.text('Parenting Pro-Tips', margin, y);
+      doc.text('Parenting tips', margin, y);
       y += 10;
-      
+
       doc.setFontSize(10);
       doc.setFont('helvetica', 'normal');
       plan.tips.forEach((tip, idx) => {
@@ -157,9 +153,9 @@ export function WeekendPlanView({ plan, onBack }: Props) {
         y += (tipLines.length * 5);
       });
 
-      doc.save(`Weekndr-Plan-${new Date().getTime()}.pdf`);
+      doc.save(`Weekendr-Plan-${new Date().getTime()}.pdf`);
     } catch (error) {
-      console.error('Manual PDF generation failed:', error);
+      console.error('PDF generation failed:', error);
       window.print();
     } finally {
       setIsExporting(false);
@@ -168,67 +164,65 @@ export function WeekendPlanView({ plan, onBack }: Props) {
 
   return (
     <div className="space-y-12 pb-20">
-      {/* Print-only Header (still useful for the fallback) */}
       <div className="print-header">
         <div className="flex items-center justify-center gap-3 mb-4">
-          <div className="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center text-white">
-            <Diamond className="w-6 h-6" />
+          <div className="w-10 h-10 bg-terracotta-500 rounded-xl flex items-center justify-center text-cream-50">
+            <Sun className="w-5 h-5" />
           </div>
-          <h1 className="text-3xl font-black text-gray-900">Weekndr Plan</h1>
+          <h1 className="text-3xl font-black text-ink-700">Weekendr plan</h1>
         </div>
       </div>
 
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 no-print">
-        <button 
+        <button
           onClick={onBack}
-          className="flex items-center gap-2 text-gray-500 hover:text-orange-500 transition-colors font-medium group"
+          className="flex items-center gap-2 text-ink-400 hover:text-terracotta-500 transition-colors font-medium group"
         >
           <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-          Back to Planner
+          Back to planner
         </button>
-        
+
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 rounded-xl font-bold text-sm border border-blue-100">
+          <div className="flex items-center gap-2 px-4 py-2 bg-sky-50 text-sky-500 rounded-xl font-semibold text-sm border border-sky-100">
             <CloudRain className="w-4 h-4" />
             {plan.weatherForecast}
           </div>
-          <button 
+          <button
             onClick={handleDownloadPDF}
             disabled={isExporting}
-            className="flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-xl font-bold hover:bg-gray-800 transition-all shadow-lg hover:scale-105 active:scale-95 disabled:opacity-50"
+            className="flex items-center gap-2 px-6 py-3 bg-ink-700 text-cream-50 rounded-xl font-bold hover:bg-ink-600 transition-all shadow-md hover:scale-105 active:scale-95 disabled:opacity-50"
           >
             {isExporting ? <Loader2 className="w-5 h-5 animate-spin" /> : <Download className="w-5 h-5" />}
-            {isExporting ? 'Creating PDF...' : 'Save Plan'}
+            {isExporting ? 'Creating PDF…' : 'Save plan'}
           </button>
         </div>
       </div>
 
       <div className="space-y-12 pdf-export-container">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          <DaySection day="Saturday" plan={plan.saturday} color="orange" />
-          <DaySection day="Sunday" plan={plan.sunday} color="blue" isSunday />
+          <DaySection day="Saturday" plan={plan.saturday} color="terracotta" />
+          <DaySection day="Sunday" plan={plan.sunday} color="pine" isSunday />
         </div>
 
-        {/* Pro Tips */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.4 }}
-          className="bg-gradient-to-br from-purple-600 to-indigo-700 rounded-[2.5rem] p-8 md:p-12 text-white shadow-2xl relative overflow-hidden"
+          className="bg-pine-500 rounded-[32px] p-8 md:p-12 text-cream-50 shadow-[0_24px_48px_-16px_rgba(38,31,24,0.22)] relative overflow-hidden"
         >
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
           <div className="relative z-10">
             <div className="flex items-center gap-3 mb-8">
-              <Lightbulb className="w-8 h-8 text-yellow-300" />
-              <h2 className="text-3xl font-black">Parenting Pro-Tips</h2>
+              <Lightbulb className="w-7 h-7 text-sun-400" />
+              <h2 className="text-2xl font-black text-cream-50">Parenting tips</h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {plan.tips.map((tip, idx) => (
-                <div key={idx} className="flex gap-4 bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20">
-                  <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center shrink-0 font-bold">
+                <div key={idx} className="flex gap-4 bg-white/10 backdrop-blur-md p-5 rounded-2xl border border-white/15">
+                  <div className="w-7 h-7 bg-white/20 rounded-full flex items-center justify-center shrink-0 font-bold text-sm">
                     {idx + 1}
                   </div>
-                  <p className="text-lg leading-relaxed">{tip}</p>
+                  <p className="text-base leading-relaxed text-cream-100">{tip}</p>
                 </div>
               ))}
             </div>
