@@ -1,0 +1,338 @@
+/* ============================================================
+   Weekendr — Colors & Type
+   The visual foundation. Import this everywhere.
+   ============================================================ */
+
+/* ---------- Fonts ---------- */
+/* Fraunces — playful display serif (headlines, brand voice moments) */
+/* Plus Jakarta Sans — friendly geometric sans (UI, body) */
+/* Caveat — handwritten accent (rare; "weekend feeling" labels) */
+/* JetBrains Mono — code/numbers when needed */
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800;9..144,900;9..144,400..900;9..144,400..900,0..100,0..1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Caveat:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+:root {
+  /* ============================================================
+     COLORS — Brand palette
+     Sunset picnic. Warm, optimistic, never neon.
+     ============================================================ */
+
+  /* Primary — Terracotta (the brand's hero color) */
+  --terracotta-50:  #FDF3EE;
+  --terracotta-100: #FADFD0;
+  --terracotta-200: #F5BFA1;
+  --terracotta-300: #EE9A6E;
+  --terracotta-400: #E47A47;
+  --terracotta-500: #D85F2A;   /* primary */
+  --terracotta-600: #B84A1F;
+  --terracotta-700: #8E3819;
+  --terracotta-800: #642813;
+  --terracotta-900: #3D170B;
+
+  /* Sun — warm yellow accent */
+  --sun-50:  #FEF8E7;
+  --sun-100: #FCEDB8;
+  --sun-200: #F9DE7E;
+  --sun-300: #F4CB46;
+  --sun-400: #EDB821;       /* accent */
+  --sun-500: #D89E0F;
+  --sun-600: #A87708;
+  --sun-700: #785405;
+
+  /* Pine — deep grounded green (secondary) */
+  --pine-50:  #EEF4EE;
+  --pine-100: #D4E3D2;
+  --pine-200: #A6C5A2;
+  --pine-300: #6FA269;
+  --pine-400: #437E3F;
+  --pine-500: #2C5E2A;       /* secondary */
+  --pine-600: #1F471F;
+  --pine-700: #143015;
+
+  /* Sky — soft blue (rare; outdoor/water moments) */
+  --sky-50:  #EEF6F8;
+  --sky-100: #CFE6EC;
+  --sky-200: #9CCBD7;
+  --sky-300: #62A9BC;
+  --sky-400: #3C879D;
+  --sky-500: #266D82;
+
+  /* Cream — the canvas */
+  --cream-50:  #FBF7F1;     /* page bg */
+  --cream-100: #F6EFE3;
+  --cream-200: #ECE0CC;
+  --cream-300: #DDCBAE;
+  --cream-400: #C5AD8A;
+  --cream-500: #9D8868;
+
+  /* Ink — neutral text */
+  --ink-50:  #F4F1ED;
+  --ink-100: #E1DBD2;
+  --ink-200: #BDB4A6;
+  --ink-300: #8A8073;
+  --ink-400: #5C5447;
+  --ink-500: #3A3329;
+  --ink-600: #261F18;
+  --ink-700: #1A140E;
+  --ink-900: #0E0A06;
+
+  /* Semantic */
+  --success: var(--pine-500);
+  --warning: var(--sun-400);
+  --danger:  #C33A2B;
+  --info:    var(--sky-400);
+
+  /* ============================================================
+     SEMANTIC TOKENS — use these in product code
+     ============================================================ */
+  --bg:           var(--cream-50);
+  --bg-raised:    #FFFFFF;
+  --bg-sunken:    var(--cream-100);
+  --bg-inverse:   var(--ink-700);
+
+  --fg:           var(--ink-700);   /* default text */
+  --fg-muted:     var(--ink-400);   /* secondary text */
+  --fg-subtle:    var(--ink-300);   /* tertiary, captions */
+  --fg-inverse:   var(--cream-50);
+  --fg-brand:     var(--terracotta-500);
+  --fg-link:      var(--terracotta-600);
+
+  --border:       var(--cream-200);
+  --border-strong: var(--cream-300);
+  --border-ink:   var(--ink-700);   /* "drawn" outline look */
+
+  --accent:       var(--terracotta-500);
+  --accent-hover: var(--terracotta-600);
+  --accent-press: var(--terracotta-700);
+  --accent-soft:  var(--terracotta-50);
+
+  /* ============================================================
+     TYPE — families
+     ============================================================ */
+  --font-display: "Fraunces", "Cooper Black", Georgia, serif;
+  --font-sans:    "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-hand:    "Caveat", "Bradley Hand", cursive;
+  --font-mono:    "JetBrains Mono", "SF Mono", Menlo, monospace;
+
+  /* Sizes — modular scale, slight 1.2 ratio with custom display jumps */
+  --text-2xs:  11px;
+  --text-xs:   12px;
+  --text-sm:   14px;
+  --text-base: 16px;
+  --text-md:   18px;
+  --text-lg:   20px;
+  --text-xl:   24px;
+  --text-2xl:  30px;
+  --text-3xl:  38px;
+  --text-4xl:  48px;
+  --text-5xl:  64px;
+  --text-6xl:  84px;
+
+  /* Weights */
+  --w-light:   300;
+  --w-regular: 400;
+  --w-medium:  500;
+  --w-semi:    600;
+  --w-bold:    700;
+  --w-black:   800;
+
+  /* Line heights */
+  --lh-tight:   1.05;
+  --lh-snug:    1.2;
+  --lh-normal:  1.45;
+  --lh-relaxed: 1.6;
+
+  /* Letter spacing */
+  --tracking-tight:  -0.02em;
+  --tracking-snug:   -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide:   0.04em;
+  --tracking-caps:   0.08em;
+
+  /* ============================================================
+     SPACE — 4-based scale
+     ============================================================ */
+  --space-0:  0;
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* ============================================================
+     RADII — generous and friendly
+     ============================================================ */
+  --radius-xs:   4px;
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   18px;   /* default card */
+  --radius-xl:   24px;
+  --radius-2xl:  32px;
+  --radius-pill: 999px;  /* default button */
+
+  /* ============================================================
+     SHADOWS — soft, low, warm-tinted
+     Never grey; always picks up a hint of ink.
+     ============================================================ */
+  --shadow-xs: 0 1px 0 rgba(38, 31, 24, 0.04);
+  --shadow-sm: 0 1px 2px rgba(38, 31, 24, 0.06), 0 1px 1px rgba(38, 31, 24, 0.04);
+  --shadow-md: 0 4px 10px -2px rgba(38, 31, 24, 0.08), 0 2px 4px rgba(38, 31, 24, 0.05);
+  --shadow-lg: 0 12px 24px -8px rgba(38, 31, 24, 0.14), 0 4px 8px rgba(38, 31, 24, 0.06);
+  --shadow-xl: 0 24px 48px -16px rgba(38, 31, 24, 0.18);
+  --shadow-pop: 0 6px 0 var(--ink-700);  /* hard offset — playful, used on key CTAs in marketing */
+  --shadow-pop-sm: 0 3px 0 var(--ink-700);
+
+  /* ============================================================
+     MOTION
+     ============================================================ */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 360ms;
+
+  /* ============================================================
+     LAYOUT
+     ============================================================ */
+  --container-sm: 640px;
+  --container-md: 800px;
+  --container-lg: 1080px;
+  --container-xl: 1280px;
+  --container-2xl: 1440px;
+}
+
+/* ============================================================
+   SEMANTIC TYPE STYLES
+   Use these classes (or @apply equivalents) instead of raw vars.
+   ============================================================ */
+
+.wk-display {
+  font-family: var(--font-display);
+  font-size: var(--text-6xl);
+  font-weight: var(--w-black);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+  font-variation-settings: "opsz" 144, "SOFT" 50, "WONK" 1;
+  color: var(--fg);
+}
+
+.wk-h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-5xl);
+  font-weight: var(--w-bold);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+  font-variation-settings: "opsz" 96, "SOFT" 30;
+  color: var(--fg);
+}
+
+.wk-h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: var(--w-semi);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-snug);
+  font-variation-settings: "opsz" 72, "SOFT" 30;
+  color: var(--fg);
+}
+
+.wk-h3 {
+  font-family: var(--font-sans);
+  font-size: var(--text-2xl);
+  font-weight: var(--w-bold);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-snug);
+  color: var(--fg);
+}
+
+.wk-h4 {
+  font-family: var(--font-sans);
+  font-size: var(--text-xl);
+  font-weight: var(--w-semi);
+  line-height: var(--lh-snug);
+  color: var(--fg);
+}
+
+.wk-eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: var(--w-bold);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--fg-brand);
+}
+
+.wk-body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: var(--w-regular);
+  line-height: var(--lh-relaxed);
+  color: var(--fg);
+}
+
+.wk-body-lg {
+  font-family: var(--font-sans);
+  font-size: var(--text-lg);
+  font-weight: var(--w-regular);
+  line-height: var(--lh-relaxed);
+  color: var(--fg);
+}
+
+.wk-caption {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--w-regular);
+  line-height: var(--lh-normal);
+  color: var(--fg-muted);
+}
+
+.wk-label {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--w-semi);
+  color: var(--fg);
+}
+
+.wk-hand {
+  font-family: var(--font-hand);
+  font-size: var(--text-2xl);
+  font-weight: var(--w-semi);
+  line-height: var(--lh-snug);
+  color: var(--fg-brand);
+  /* Use sparingly — annotations, "yay!" moments, stickers */
+}
+
+.wk-mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--fg);
+}
+
+/* ============================================================
+   BASE ELEMENT DEFAULTS
+   Optional — opt in by adding `class="wk-base"` to <body>.
+   ============================================================ */
+.wk-base {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--lh-relaxed);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.wk-base h1 { font: var(--w-bold) var(--text-5xl)/var(--lh-tight) var(--font-display); letter-spacing: var(--tracking-tight); }
+.wk-base h2 { font: var(--w-semi) var(--text-4xl)/var(--lh-snug) var(--font-display); letter-spacing: var(--tracking-snug); }
+.wk-base h3 { font: var(--w-bold) var(--text-2xl)/var(--lh-snug) var(--font-sans); }
+.wk-base h4 { font: var(--w-semi) var(--text-xl)/var(--lh-snug) var(--font-sans); }
+.wk-base p  { font-size: var(--text-base); line-height: var(--lh-relaxed); margin: 0 0 var(--space-4); text-wrap: pretty; }
+.wk-base a  { color: var(--fg-link); text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+.wk-base a:hover { color: var(--accent-press); }
+.wk-base code { font-family: var(--font-mono); font-size: 0.9em; background: var(--bg-sunken); padding: 2px 6px; border-radius: var(--radius-xs); }

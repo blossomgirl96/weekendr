@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  body { gap: 6px; padding: 28px 32px; }
+  .specimen { font-family: "Fraunces", serif; font-weight: 700; font-size: 56px; line-height: 1; letter-spacing: -0.02em; font-variation-settings: "opsz" 144, "SOFT" 40; color: var(--ink-700); }
+  .specimen .accent { color: var(--terracotta-500); }
+  .pangram { font-family: "Plus Jakarta Sans", sans-serif; font-size: 16px; color: var(--ink-400); margin-top: 14px; max-width: 600px; }
+  .stack { display: flex; gap: 18px; align-items: baseline; margin-top: 8px; flex-wrap: wrap; }
+  .stack span { font-family: var(--font-mono); font-size: 11px; color: var(--fg-muted); }
+  .stack b { font-family: "Fraunces", serif; font-size: 22px; color: var(--ink-700); margin-right: 6px; font-weight: 600; }
+</style></head>
+<body>
+  <div class="specimen">Aa Bb Cc <span class="accent">&amp;</span> 0123</div>
+  <div class="pangram">A pack of weekend plans for the family — quick to browse, easy to share.</div>
+  <div class="stack">
+    <span><b>Aa</b>Fraunces 9pt opsz</span>
+    <span><b style="font-variation-settings:'opsz' 144">Aa</b>Fraunces 144pt opsz</span>
+    <span><b style="font-variation-settings:'opsz' 144,'SOFT' 100">Aa</b>SOFT 100</span>
+    <span><b style="font-variation-settings:'opsz' 144,'WONK' 1">Aa</b>WONK on</span>
+  </div>
+</body></html>

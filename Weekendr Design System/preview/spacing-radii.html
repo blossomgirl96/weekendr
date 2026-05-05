@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  body { gap: 18px; padding: 24px 28px; flex-direction: row; flex-wrap: wrap; align-items: flex-end; }
+  .item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .shape { background: var(--cream-100); border: 1px solid var(--cream-300); width: 88px; height: 64px; }
+  .lbl { font-family: var(--font-mono); font-size: 10px; color: var(--fg-muted); }
+  .val { font-family: "Plus Jakarta Sans", sans-serif; font-size: 12px; font-weight: 600; color: var(--ink-700); }
+  .pill-row { display: flex; gap: 8px; align-items: center; padding-top: 8px; border-top: 1px dashed var(--cream-300); width: 100%; margin-top: 4px; }
+  button.pill { background: var(--terracotta-500); color: white; border: none; padding: 10px 22px; border-radius: 999px; font-family: "Plus Jakarta Sans", sans-serif; font-weight: 600; font-size: 14px; box-shadow: 0 3px 0 var(--ink-700); }
+</style></head>
+<body>
+  <div class="item"><div class="shape" style="border-radius:4px"></div><div class="val">4px</div><div class="lbl">radius-xs</div></div>
+  <div class="item"><div class="shape" style="border-radius:8px"></div><div class="val">8px</div><div class="lbl">radius-sm</div></div>
+  <div class="item"><div class="shape" style="border-radius:12px"></div><div class="val">12px</div><div class="lbl">radius-md</div></div>
+  <div class="item"><div class="shape" style="border-radius:18px;background:var(--terracotta-50);border-color:var(--terracotta-200)"></div><div class="val">18px</div><div class="lbl">radius-lg · default card</div></div>
+  <div class="item"><div class="shape" style="border-radius:24px"></div><div class="val">24px</div><div class="lbl">radius-xl</div></div>
+  <div class="item"><div class="shape" style="border-radius:32px"></div><div class="val">32px</div><div class="lbl">radius-2xl</div></div>
+  <div class="item"><div class="shape" style="border-radius:999px"></div><div class="val">pill</div><div class="lbl">radius-pill · buttons</div></div>
+</body></html>

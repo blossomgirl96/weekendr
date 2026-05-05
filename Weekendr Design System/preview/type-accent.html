@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  body { gap: 16px; padding: 28px 32px; align-items: flex-start; }
+  .hand { font-family: "Caveat", cursive; font-weight: 600; font-size: 38px; color: var(--terracotta-500); line-height: 1; transform: rotate(-3deg); }
+  .mono { font-family: "JetBrains Mono", monospace; font-size: 14px; color: var(--ink-700); }
+  .row { display: grid; grid-template-columns: 1fr 180px; align-items: center; gap: 24px; width: 100%; }
+  .meta { font-family: var(--font-mono); font-size: 10.5px; color: var(--fg-muted); text-align: right; }
+  .receipt { background: #FFF; border: 1px solid var(--cream-200); border-radius: 12px; padding: 10px 14px; font-family: "JetBrains Mono", monospace; font-size: 13px; display: flex; flex-direction: column; gap: 4px; max-width: 320px; }
+  .receipt .line { display: flex; justify-content: space-between; }
+  .receipt .total { border-top: 1px dashed var(--cream-300); padding-top: 4px; margin-top: 2px; font-weight: 600; }
+</style></head>
+<body>
+  <div class="row">
+    <div class="hand">yay! free this weekend ☀</div>
+    <div class="meta">Caveat · 38px · ±3° rotate · use SPARINGLY</div>
+  </div>
+  <div class="row">
+    <div class="receipt">
+      <div class="line"><span>Children's Museum</span><span>$24.00</span></div>
+      <div class="line"><span>Pumpkin Patch</span><span>$15.00</span></div>
+      <div class="line total"><span>Saturday total</span><span>$39.00</span></div>
+    </div>
+    <div class="meta">JetBrains Mono · prices, codes, times</div>
+  </div>
+</body></html>

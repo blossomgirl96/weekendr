@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weekendr — your weekend</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+const ALL_ITEMS = [
+  { id: 1, title: "Pumpkin patch & hayride", desc: "Hay maze, baby goats, hot cider stand. Allow 30 min to drive.", time: "2 hr", loc: "Queens · 22 min", price: "$12 a kid", priceNum: 12, tag: "Popular", gradient: "linear-gradient(135deg, #F5BFA1, #EDB821)", tags: ["Outdoor"] },
+  { id: 2, title: "Forest sounds story walk", desc: "Audio-guided loop in Prospect Park. Free, drop-in any time.", time: "45 min", loc: "Prospect Park · 8 min", price: "Free", priceNum: 0, tag: "Free", gradient: "linear-gradient(135deg, #6FA269, #2C5E2A)", tags: ["Outdoor", "Free", "Under 1 hr"] },
+  { id: 3, title: "Aquarium late entry", desc: "After 3pm tickets get you in for $6 less. Tunnel is the highlight.", time: "1.5 hr", loc: "Coney Island · 28 min", price: "$18 a kid", priceNum: 18, gradient: "linear-gradient(135deg, #62A9BC, #266D82)", tags: ["Indoor"] },
+  { id: 4, title: "Make-your-own pottery", desc: "Spinning wheel intro for ages 5+. Bring something you don't mind getting dirty.", time: "1 hr", loc: "Park Slope · 12 min", price: "$22 a kid", priceNum: 22, gradient: "linear-gradient(135deg, #FADFD0, #D85F2A)", tags: ["Indoor", "Stroller-ok"] },
+  { id: 5, title: "Botanical garden picnic", desc: "Bring a blanket. Cherry blossoms are nearly peak.", time: "2 hr", loc: "BBG · 6 min", price: "$8 entry", priceNum: 8, tag: "Today", gradient: "linear-gradient(135deg, #A6C5A2, #437E3F)", tags: ["Outdoor", "Stroller-ok"] },
+  { id: 6, title: "Library kid concert", desc: "30-min folk set for tiny humans. Free, but get there 15 early.", time: "30 min", loc: "Central Library · 4 min", price: "Free", priceNum: 0, gradient: "linear-gradient(135deg, #F9DE7E, #D89E0F)", tags: ["Indoor", "Free", "Under 1 hr"] },
+];
+
+function App() {
+  const [active, setActive] = useState("browse");
+  const [filter, setFilter] = useState("All");
+  const [plan, setPlan] = useState({});
+  const [favs, setFavs] = useState({ 2: true });
+
+  useEffect(() => { lucide.createIcons(); });
+
+  const items = filter === "All" ? ALL_ITEMS : ALL_ITEMS.filter(i => i.tags.includes(filter));
+
+  const addToPlan = (item, day) => setPlan(p => ({ ...p, [item.id]: { ...item, day } }));
+  const removeFromPlan = (id) => setPlan(p => { const n = { ...p }; delete n[id]; return n; });
+  const toggleFav = (id) => setFavs(f => ({ ...f, [id]: !f[id] }));
+
+  return (
+    <div className="ap-app">
+      <AppSidebar active={active} onNav={setActive} />
+      <main className="ap-main">
+        <BrowseHeader />
+        <FilterBar filter={filter} setFilter={setFilter} />
+        <ActivityList items={items} plan={plan} favs={favs} addToPlan={addToPlan} toggleFav={toggleFav} />
+      </main>
+      <WeekendTray plan={plan} onRemove={removeFromPlan} />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

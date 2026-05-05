@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  body { gap: 14px; padding: 26px 32px; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .badge { font-family: "Plus Jakarta Sans", sans-serif; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 999px; }
+  .b-sun { background: var(--sun-100); color: var(--sun-700); }
+  .b-pine { background: var(--pine-100); color: var(--pine-700); }
+  .b-sky { background: var(--sky-100); color: var(--sky-500); }
+  .b-terra { background: var(--terracotta-100); color: var(--terracotta-700); }
+  .b-cream { background: var(--cream-100); color: var(--ink-500); }
+  .b-ink { background: var(--ink-700); color: var(--cream-50); }
+  .b-out { background: white; color: var(--ink-700); border: 1.5px solid var(--ink-700); }
+  .pill { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 999px; border: 1.5px solid var(--cream-300); background: white; font-size: 13px; font-weight: 600; color: var(--ink-700); cursor: pointer; }
+  .pill.on { background: var(--ink-700); color: var(--cream-50); border-color: var(--ink-700); }
+  .lbl { font-size: 11px; color: var(--fg-muted); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+</style></head>
+<body>
+  <span class="lbl">Category badges</span>
+  <div class="row">
+    <span class="badge b-sun">☀ Today</span>
+    <span class="badge b-pine">Outdoor</span>
+    <span class="badge b-sky">Splash</span>
+    <span class="badge b-terra">Free</span>
+    <span class="badge b-cream">Indoor</span>
+    <span class="badge b-ink">Sold out</span>
+    <span class="badge b-out">New</span>
+  </div>
+  <span class="lbl" style="margin-top:6px">Filter chips · single-select</span>
+  <div class="row">
+    <span class="pill on">All</span>
+    <span class="pill">Outdoor</span>
+    <span class="pill">Indoor</span>
+    <span class="pill">Free</span>
+    <span class="pill">Under 1 hr</span>
+    <span class="pill">Stroller-ok</span>
+  </div>
+</body></html>

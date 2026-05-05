@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  body { gap: 14px; }
+  .ramp { display: grid; grid-template-columns: 90px repeat(8, 1fr); gap: 6px; align-items: center; }
+  .ramp .lbl { font-family: var(--font-display); font-weight: 700; font-size: 16px; }
+  .sw { aspect-ratio: 1.5 / 1; border-radius: 8px; display: flex; align-items: flex-end; padding: 4px 6px; font-size: 9px; font-weight: 600; box-shadow: var(--shadow-xs); }
+  .sw.dark { color: var(--cream-50); }
+  .sw.light { color: var(--ink-700); }
+  .sw.outline { border: 1px solid var(--cream-300); }
+</style></head>
+<body>
+  <div class="ramp">
+    <span class="lbl">Cream</span>
+    <div class="sw light outline" style="background:#FBF7F1">50</div>
+    <div class="sw light" style="background:#F6EFE3">100</div>
+    <div class="sw light" style="background:#ECE0CC">200</div>
+    <div class="sw light" style="background:#DDCBAE">300</div>
+    <div class="sw light" style="background:#C5AD8A">400</div>
+    <div class="sw dark" style="background:#9D8868">500</div>
+    <div class="sw dark" style="background:#7A6850">600</div>
+    <div class="sw dark" style="background:#574A38">700</div>
+  </div>
+  <div class="ramp">
+    <span class="lbl">Ink</span>
+    <div class="sw light" style="background:#F4F1ED">50</div>
+    <div class="sw light" style="background:#E1DBD2">100</div>
+    <div class="sw light" style="background:#BDB4A6">200</div>
+    <div class="sw dark" style="background:#8A8073">300</div>
+    <div class="sw dark" style="background:#5C5447">400</div>
+    <div class="sw dark" style="background:#3A3329">500</div>
+    <div class="sw dark" style="background:#261F18">600</div>
+    <div class="sw dark" style="background:#1A140E">700</div>
+  </div>
+</body></html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  body { gap: 14px; }
+  .ramp { display: grid; grid-template-columns: 90px repeat(7, 1fr); gap: 6px; align-items: center; }
+  .ramp .lbl { font-family: var(--font-display); font-weight: 700; font-size: 16px; }
+  .sw { aspect-ratio: 1.5 / 1; border-radius: 8px; display: flex; align-items: flex-end; padding: 4px 6px; font-size: 9px; font-weight: 600; box-shadow: var(--shadow-xs); }
+  .sw.dark { color: var(--cream-50); }
+  .sw.light { color: var(--ink-700); }
+</style></head>
+<body>
+  <div class="ramp">
+    <span class="lbl">Sun</span>
+    <div class="sw light" style="background:#FEF8E7">50</div>
+    <div class="sw light" style="background:#FCEDB8">100</div>
+    <div class="sw light" style="background:#F9DE7E">200</div>
+    <div class="sw light" style="background:#F4CB46">300</div>
+    <div class="sw dark" style="background:#EDB821">400</div>
+    <div class="sw dark" style="background:#D89E0F">500</div>
+    <div class="sw dark" style="background:#A87708">600</div>
+  </div>
+  <div class="ramp">
+    <span class="lbl">Pine</span>
+    <div class="sw light" style="background:#EEF4EE">50</div>
+    <div class="sw light" style="background:#D4E3D2">100</div>
+    <div class="sw light" style="background:#A6C5A2">200</div>
+    <div class="sw dark" style="background:#6FA269">300</div>
+    <div class="sw dark" style="background:#437E3F">400</div>
+    <div class="sw dark" style="background:#2C5E2A">500</div>
+    <div class="sw dark" style="background:#1F471F">600</div>
+  </div>
+  <div class="ramp">
+    <span class="lbl">Sky</span>
+    <div class="sw light" style="background:#EEF6F8">50</div>
+    <div class="sw light" style="background:#CFE6EC">100</div>
+    <div class="sw light" style="background:#9CCBD7">200</div>
+    <div class="sw dark" style="background:#62A9BC">300</div>
+    <div class="sw dark" style="background:#3C879D">400</div>
+    <div class="sw dark" style="background:#266D82">500</div>
+    <div class="sw dark" style="background:#1B5061">600</div>
+  </div>
+</body></html>

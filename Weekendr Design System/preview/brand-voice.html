@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  body { gap: 12px; padding: 24px 30px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: stretch; }
+  .yes, .no { padding: 14px 16px; border-radius: 14px; font-family: "Plus Jakarta Sans", sans-serif; }
+  .yes { background: var(--pine-50); border: 1px solid var(--pine-100); }
+  .no { background: #FBEEEC; border: 1px solid #F5D2CC; }
+  .h { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+  .yes .h { color: var(--pine-500); }
+  .no .h { color: var(--danger); }
+  .yes p, .no p { font-size: 14px; color: var(--ink-700); margin: 0; line-height: 1.4; }
+  .no p { text-decoration: line-through; text-decoration-color: rgba(195,58,43,0.4); }
+</style></head>
+<body>
+  <div class="row">
+    <div class="yes"><div class="h">✓ Voice</div><p>"Saturday's looking good. We pulled five things you might like."</p></div>
+    <div class="no"><div class="h">✗ Avoid</div><p>"Discover Amazing Weekend Adventures with our AI-curated picks!"</p></div>
+  </div>
+  <div class="row">
+    <div class="yes"><div class="h">✓ Voice</div><p>"Skip the planning. Keep the fun."</p></div>
+    <div class="no"><div class="h">✗ Avoid</div><p>"Family fun made magical with Weekendr."</p></div>
+  </div>
+  <div class="row">
+    <div class="yes"><div class="h">✓ Voice</div><p>"Three hours, indoor, $12 a kid. Strollers welcome."</p></div>
+    <div class="no"><div class="h">✗ Avoid</div><p>"Get ready for a fun-filled day of family adventures!"</p></div>
+  </div>
+</body></html>

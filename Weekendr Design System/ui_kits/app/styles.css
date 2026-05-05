@@ -1,0 +1,91 @@
+/* Planner app — Weekendr */
+@import url("../../colors_and_type.css");
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--cream-50); color: var(--ink-700); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+input { font-family: inherit; }
+
+.ap-app { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+
+/* Sidebar */
+.ap-sidebar { background: var(--cream-100); padding: 22px 16px; display: flex; flex-direction: column; border-right: 1px solid var(--cream-200); }
+.ap-lockup { display: flex; align-items: center; gap: 8px; padding: 6px 10px; font-family: var(--font-display); font-weight: 800; font-size: 20px; letter-spacing: -0.02em; color: var(--ink-700); margin-bottom: 22px; }
+.ap-nav { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+.ap-nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 12px; font-size: 15px; font-weight: 500; color: var(--ink-400); text-align: left; transition: all 150ms; }
+.ap-nav-item:hover { background: rgba(0,0,0,0.03); color: var(--ink-700); }
+.ap-nav-item.active { background: var(--ink-700); color: var(--cream-50); font-weight: 600; }
+.ap-nav-item span { flex: 1; }
+.ap-nav-badge { background: var(--terracotta-500); color: white; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; }
+.ap-nav-item.active .ap-nav-badge { background: var(--sun-300); color: var(--ink-700); }
+.ap-sidebar-foot { display: flex; align-items: center; gap: 10px; padding: 10px; border-top: 1px solid var(--cream-200); margin-top: 8px; }
+.ap-avatar { width: 36px; height: 36px; border-radius: 999px; background: var(--terracotta-500); color: white; display: grid; place-items: center; font-weight: 700; font-size: 14px; border: 2px solid var(--ink-700); }
+.ap-account-name { font-size: 14px; font-weight: 600; color: var(--ink-700); }
+.ap-account-meta { font-size: 12px; color: var(--ink-400); }
+
+/* Main */
+.ap-main { padding: 32px 40px 120px; max-width: 1100px; }
+.ap-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; margin-bottom: 28px; }
+.ap-header h1 { font-family: var(--font-display); font-weight: 700; font-size: 38px; line-height: 1.1; letter-spacing: -0.02em; color: var(--ink-700); margin-bottom: 6px; font-variation-settings: "opsz" 96, "SOFT" 30; }
+.ap-header-sub { font-size: 14px; color: var(--ink-400); }
+.ap-header-actions { display: flex; gap: 10px; align-items: center; }
+.ap-search { display: flex; align-items: center; gap: 8px; padding: 9px 14px; background: white; border-radius: 999px; border: 1.5px solid var(--cream-200); width: 280px; }
+.ap-search input { border: none; outline: none; font-size: 14px; flex: 1; background: none; color: var(--ink-700); }
+.ap-search input::placeholder { color: var(--ink-300); }
+.ap-search i { color: var(--ink-300); }
+.ap-icon-btn { width: 42px; height: 42px; border-radius: 999px; background: white; border: 1.5px solid var(--cream-200); display: grid; place-items: center; color: var(--ink-700); }
+.ap-icon-btn:hover { border-color: var(--ink-700); }
+
+.ap-filterbar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+.ap-chip { padding: 8px 16px; border-radius: 999px; border: 1.5px solid var(--cream-300); background: white; font-size: 13.5px; font-weight: 600; color: var(--ink-700); transition: all 150ms; }
+.ap-chip:hover { border-color: var(--ink-400); }
+.ap-chip.on { background: var(--ink-700); color: var(--cream-50); border-color: var(--ink-700); }
+
+/* Activity row */
+.ap-list { display: flex; flex-direction: column; gap: 14px; }
+.ap-row { display: grid; grid-template-columns: 140px 1fr auto; gap: 18px; padding: 16px; background: white; border-radius: 18px; box-shadow: var(--shadow-sm); transition: all 200ms cubic-bezier(0.22,1,0.36,1); }
+.ap-row:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.ap-row-photo { height: 110px; border-radius: 12px; position: relative; }
+.ap-row-tag { position: absolute; top: 8px; left: 8px; background: white; color: var(--ink-700); font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 999px; box-shadow: var(--shadow-xs); }
+.ap-row-body { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.ap-row-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.ap-row-body h3 { font-family: var(--font-display); font-weight: 700; font-size: 20px; line-height: 1.2; color: var(--ink-700); }
+.ap-row-desc { font-size: 14px; color: var(--ink-400); line-height: 1.45; }
+.ap-row-meta { display: flex; gap: 14px; font-size: 13px; color: var(--ink-400); margin-top: auto; align-items: center; flex-wrap: wrap; }
+.ap-row-meta span { display: inline-flex; align-items: center; gap: 5px; }
+.ap-row-meta i { color: var(--ink-300); }
+.ap-row-price { font-family: var(--font-mono); font-weight: 600; color: var(--pine-500) !important; }
+.ap-fav-btn { width: 32px; height: 32px; border-radius: 999px; display: grid; place-items: center; color: var(--ink-300); transition: all 150ms; flex-shrink: 0; }
+.ap-fav-btn:hover { background: var(--cream-100); color: var(--terracotta-500); }
+.ap-fav-btn.on { color: var(--terracotta-500); }
+.ap-row-actions { display: flex; flex-direction: column; gap: 6px; align-items: stretch; justify-content: center; }
+
+/* Buttons */
+.ap-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 9px 16px; border-radius: 999px; font-weight: 600; font-size: 13.5px; transition: all 150ms; white-space: nowrap; }
+.ap-btn-pop { background: var(--terracotta-500); color: white; border: 2px solid var(--ink-700); box-shadow: 0 3px 0 var(--ink-700); }
+.ap-btn-pop:hover { background: var(--terracotta-600); transform: translateY(-1px); box-shadow: 0 4px 0 var(--ink-700); }
+.ap-btn-pop:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink-700); }
+.ap-btn-pine { background: var(--pine-500); color: white; cursor: default; }
+.ap-btn-ghost { background: transparent; color: var(--ink-400); border: 1.5px solid var(--cream-300); }
+.ap-btn-ghost:hover { color: var(--ink-700); border-color: var(--ink-400); }
+.ap-btn-full { width: 100%; padding: 13px; font-size: 15px; }
+
+.ap-empty { text-align: center; padding: 60px 20px; }
+.ap-empty img { margin-bottom: 16px; opacity: 0.7; }
+.ap-empty h3 { font-family: var(--font-display); font-weight: 700; font-size: 22px; color: var(--ink-700); margin-bottom: 6px; }
+.ap-empty p { font-size: 15px; color: var(--ink-400); }
+
+/* Tray */
+.ap-tray { position: fixed; bottom: 24px; right: 24px; width: 340px; background: white; border-radius: 20px; box-shadow: var(--shadow-xl); border: 2px solid var(--ink-700); overflow: hidden; transition: all 280ms cubic-bezier(0.22,1,0.36,1); z-index: 30; }
+.ap-tray-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; width: 100%; background: var(--sun-300); border-bottom: 2px solid var(--ink-700); }
+.ap-tray.closed .ap-tray-head { border-bottom: none; }
+.ap-tray-head-left { display: flex; align-items: center; gap: 12px; }
+.ap-tray-title { font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--ink-700); text-align: left; }
+.ap-tray-sub { font-size: 12px; color: var(--ink-500); text-align: left; }
+.ap-tray-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 14px; }
+.ap-tray-day-head { display: flex; justify-content: space-between; font-family: var(--font-sans); font-weight: 700; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-400); margin-bottom: 6px; }
+.ap-tray-day-head span { background: var(--cream-100); color: var(--ink-700); padding: 1px 8px; border-radius: 999px; font-size: 11px; }
+.ap-tray-empty { font-size: 13px; color: var(--ink-300); padding: 6px 0; font-style: italic; }
+.ap-tray-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: var(--cream-50); border-radius: 10px; font-size: 13.5px; color: var(--ink-700); margin-bottom: 4px; }
+.ap-tray-item button { color: var(--ink-300); padding: 2px; }
+.ap-tray-item button:hover { color: var(--danger); }

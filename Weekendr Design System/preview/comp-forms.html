@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  body { gap: 14px; padding: 24px 32px; }
+  .field { display: flex; flex-direction: column; gap: 6px; max-width: 380px; }
+  label { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 600; font-size: 13px; color: var(--ink-700); }
+  input, select { font-family: "Plus Jakarta Sans", sans-serif; font-size: 15px; padding: 12px 14px; border-radius: 12px; border: 1.5px solid var(--cream-300); background: white; color: var(--ink-700); transition: all 150ms; outline: none; }
+  input:focus, select:focus { border-color: var(--terracotta-500); box-shadow: 0 0 0 3px rgba(216,95,42,0.2); }
+  input::placeholder { color: var(--ink-300); }
+  .help { font-size: 12px; color: var(--fg-muted); }
+  .row { display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap; }
+  .check { display: flex; gap: 10px; align-items: center; padding: 10px 14px; border-radius: 12px; border: 1.5px solid var(--cream-300); cursor: pointer; }
+  .check.on { border-color: var(--terracotta-500); background: var(--terracotta-50); }
+  .box { width: 18px; height: 18px; border-radius: 5px; border: 2px solid var(--ink-700); display: grid; place-items: center; }
+  .check.on .box { background: var(--terracotta-500); color: white; border-color: var(--ink-700); }
+</style></head>
+<body>
+  <div class="row">
+    <div class="field">
+      <label>Where are you?</label>
+      <input type="text" value="Brooklyn, NY" />
+      <span class="help">We'll keep things within 30 minutes.</span>
+    </div>
+    <div class="field" style="max-width:200px">
+      <label>Kid age</label>
+      <select><option>3–5 years</option></select>
+    </div>
+  </div>
+  <div class="row" style="gap:8px">
+    <div class="check on"><div class="box">✓</div><span>Outdoor</span></div>
+    <div class="check"><div class="box"></div><span>Indoor</span></div>
+    <div class="check on"><div class="box">✓</div><span>Free</span></div>
+    <div class="check"><div class="box"></div><span>Stroller-friendly</span></div>
+  </div>
+</body></html>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 96" width="380" height="96">
+  <defs>
+    
+  </defs>
+  
+  <g transform="translate(28, 48)">
+    <circle cx="0" cy="0" r="14" fill="#EDB821"></circle>
+    <g stroke="#EDB821" stroke-width="3" stroke-linecap="round">
+      <line x1="-22" y1="0" x2="-18" y2="0"></line>
+      <line x1="22" y1="0" x2="18" y2="0"></line>
+      <line x1="0" y1="-22" x2="0" y2="-18"></line>
+      <line x1="0" y1="22" x2="0" y2="18"></line>
+      <line x1="-15.5" y1="-15.5" x2="-12.7" y2="-12.7"></line>
+      <line x1="15.5" y1="15.5" x2="12.7" y2="12.7"></line>
+      <line x1="-15.5" y1="15.5" x2="-12.7" y2="12.7"></line>
+      <line x1="15.5" y1="-15.5" x2="12.7" y2="-12.7"></line>
+    </g>
+  </g>
+  <text x="60" y="64" class="w" fill="#1A140E">weekendr</text>
+</svg>

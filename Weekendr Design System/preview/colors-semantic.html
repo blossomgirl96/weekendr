@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  body { gap: 12px; padding: 24px 28px; }
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 24px; }
+  .item { display: flex; align-items: center; gap: 12px; }
+  .chip { width: 36px; height: 36px; border-radius: 10px; box-shadow: var(--shadow-sm); flex-shrink: 0; }
+  .chip.outline { border: 1px solid var(--cream-300); }
+  .lbl { font-size: 13px; font-weight: 600; color: var(--ink-700); }
+  .var { font-family: var(--font-mono); font-size: 11px; color: var(--fg-muted); }
+</style></head>
+<body>
+  <div class="grid">
+    <div class="item"><div class="chip outline" style="background:#FBF7F1"></div><div class="col"><span class="lbl">Page background</span><span class="var">--bg</span></div></div>
+    <div class="item"><div class="chip" style="background:#FFFFFF"></div><div class="col"><span class="lbl">Surface raised</span><span class="var">--bg-raised</span></div></div>
+    <div class="item"><div class="chip" style="background:#1A140E"></div><div class="col"><span class="lbl">Default text</span><span class="var">--fg</span></div></div>
+    <div class="item"><div class="chip" style="background:#5C5447"></div><div class="col"><span class="lbl">Muted text</span><span class="var">--fg-muted</span></div></div>
+    <div class="item"><div class="chip" style="background:#D85F2A"></div><div class="col"><span class="lbl">Brand / accent</span><span class="var">--fg-brand · --accent</span></div></div>
+    <div class="item"><div class="chip" style="background:#2C5E2A"></div><div class="col"><span class="lbl">Success</span><span class="var">--success</span></div></div>
+    <div class="item"><div class="chip" style="background:#EDB821"></div><div class="col"><span class="lbl">Warning / sun</span><span class="var">--warning</span></div></div>
+    <div class="item"><div class="chip" style="background:#C33A2B"></div><div class="col"><span class="lbl">Danger</span><span class="var">--danger</span></div></div>
+  </div>
+</body></html>

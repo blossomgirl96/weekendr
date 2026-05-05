@@ -1,0 +1,140 @@
+/* Marketing site — Weekendr */
+@import url("../../colors_and_type.css");
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--cream-50); color: var(--ink-700); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+
+a { text-decoration: none; color: inherit; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+/* ---------- Buttons ---------- */
+.mk-btn { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; border-radius: 999px; transition: all 180ms cubic-bezier(0.22,1,0.36,1); white-space: nowrap; }
+.mk-btn-sm { padding: 9px 18px; font-size: 14px; }
+.mk-btn { padding: 12px 22px; font-size: 15px; }
+.mk-btn-lg { padding: 16px 30px; font-size: 17px; }
+.mk-btn-full { width: 100%; justify-content: center; }
+.mk-btn-primary { background: var(--terracotta-500); color: white; border: 2px solid var(--ink-700); box-shadow: 0 4px 0 var(--ink-700); }
+.mk-btn-primary:hover { background: var(--terracotta-600); transform: translateY(-1px); box-shadow: 0 5px 0 var(--ink-700); }
+.mk-btn-primary:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--ink-700); }
+.mk-btn-ghost { color: var(--ink-700); }
+.mk-btn-ghost:hover { background: var(--cream-100); }
+
+.mk-link { color: var(--ink-700); font-weight: 600; font-size: 15px; }
+.mk-link:hover { color: var(--terracotta-600); }
+.mk-link-arrow { color: var(--terracotta-600); font-weight: 600; font-size: 15px; }
+.mk-link-arrow:hover { color: var(--terracotta-700); }
+
+.mk-eyebrow { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--terracotta-500); margin-bottom: 14px; }
+.mk-dot { display: inline-block; width: 3px; height: 3px; border-radius: 50%; background: var(--cream-400); margin: 0 6px; flex-shrink: 0; }
+
+/* ---------- Header ---------- */
+.mk-header { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 14px 40px; background: rgba(251, 247, 241, 0.85); backdrop-filter: blur(10px); border-bottom: 1px solid var(--cream-200); }
+.mk-lockup { display: flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 800; font-size: 22px; letter-spacing: -0.02em; color: var(--ink-700); }
+.mk-lockup-light { color: var(--cream-50); }
+.mk-nav { display: flex; gap: 28px; }
+.mk-nav a { font-size: 15px; font-weight: 500; color: var(--ink-400); }
+.mk-nav a:hover { color: var(--ink-700); }
+.mk-header-actions { display: flex; align-items: center; gap: 18px; }
+
+/* ---------- Hero ---------- */
+.mk-hero { position: relative; padding: 96px 40px 80px; text-align: center; max-width: 900px; margin: 0 auto; }
+.mk-hero-title { font-family: var(--font-display); font-weight: 800; font-size: 88px; line-height: 1.0; letter-spacing: -0.03em; color: var(--ink-700); font-variation-settings: "opsz" 144, "SOFT" 50, "WONK" 1; margin-bottom: 24px; text-wrap: balance; }
+.mk-hero-title-accent { color: var(--terracotta-500); }
+.mk-hero-sub { font-size: 20px; line-height: 1.55; color: var(--ink-400); max-width: 580px; margin: 0 auto 36px; text-wrap: pretty; }
+.mk-hero-cta { display: flex; gap: 14px; justify-content: center; align-items: center; margin-bottom: 32px; flex-wrap: wrap; }
+.mk-hero-meta { display: flex; gap: 8px; justify-content: center; align-items: center; font-size: 14px; color: var(--ink-400); }
+.mk-hero-doodle { position: absolute; }
+.mk-hero-doodle-1 { top: 50px; left: 8%; transform: rotate(-12deg); }
+.mk-hero-doodle-2 { top: 110px; right: 10%; transform: rotate(8deg); }
+.mk-hero-doodle-3 { bottom: 80px; left: 12%; transform: rotate(-20deg); }
+
+/* ---------- Browse rail ---------- */
+.mk-rail-section { padding: 60px 40px; max-width: 1280px; margin: 0 auto; }
+.mk-rail-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; gap: 24px; flex-wrap: wrap; }
+.mk-rail-head h2 { font-family: var(--font-display); font-weight: 700; font-size: 38px; line-height: 1.1; letter-spacing: -0.02em; color: var(--ink-700); max-width: 600px; text-wrap: balance; }
+.mk-rail { display: flex; gap: 18px; overflow-x: auto; padding: 8px 4px 24px; scroll-snap-type: x mandatory; }
+.mk-rail::-webkit-scrollbar { height: 8px; }
+.mk-rail::-webkit-scrollbar-thumb { background: var(--cream-300); border-radius: 999px; }
+
+.mk-acard { background: white; border-radius: 18px; box-shadow: var(--shadow-sm); width: 280px; flex-shrink: 0; overflow: hidden; transition: all 200ms cubic-bezier(0.22,1,0.36,1); scroll-snap-align: start; cursor: pointer; }
+.mk-acard:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.mk-acard-photo { height: 160px; position: relative; }
+.mk-acard-badge { position: absolute; top: 12px; left: 12px; background: white; color: var(--ink-700); font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 999px; box-shadow: var(--shadow-xs); }
+.mk-acard-badge-sun { background: var(--sun-300); left: auto; right: 56px; }
+.mk-acard-heart { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; border-radius: 999px; background: rgba(255,255,255,0.95); display: grid; place-items: center; color: var(--terracotta-500); transition: all 150ms; }
+.mk-acard-heart:hover { transform: scale(1.1); }
+.mk-acard-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px; }
+.mk-acard-body h3 { font-family: var(--font-display); font-weight: 700; font-size: 20px; line-height: 1.2; color: var(--ink-700); }
+.mk-acard-meta { display: flex; gap: 4px; font-size: 13px; color: var(--ink-400); align-items: center; }
+.mk-acard-price { font-family: var(--font-mono); font-weight: 600; color: var(--pine-500); font-size: 14px; }
+
+/* ---------- Categories ---------- */
+.mk-cats { padding: 80px 40px; max-width: 1280px; margin: 0 auto; }
+.mk-cats h2 { font-family: var(--font-display); font-weight: 700; font-size: 42px; line-height: 1.1; letter-spacing: -0.02em; color: var(--ink-700); margin-bottom: 40px; text-wrap: balance; max-width: 700px; }
+.mk-cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.mk-cat { display: flex; align-items: center; gap: 16px; padding: 24px; border-radius: 18px; transition: all 200ms cubic-bezier(0.22,1,0.36,1); cursor: pointer; border: 1.5px solid transparent; }
+.mk-cat:hover { transform: translateY(-2px); border-color: var(--ink-700); }
+.mk-cat-name { font-family: var(--font-display); font-weight: 700; font-size: 22px; color: var(--ink-700); }
+.mk-cat-count { font-size: 13px; color: var(--ink-400); margin-top: 2px; }
+
+/* ---------- How ---------- */
+.mk-how { background: var(--cream-100); padding: 96px 40px; }
+.mk-how-head { max-width: 1080px; margin: 0 auto 56px; text-align: center; }
+.mk-how-head h2 { font-family: var(--font-display); font-weight: 700; font-size: 48px; line-height: 1.05; letter-spacing: -0.02em; color: var(--ink-700); }
+.mk-how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; max-width: 1080px; margin: 0 auto; }
+.mk-how-step { background: white; border-radius: 24px; padding: 32px; box-shadow: var(--shadow-sm); }
+.mk-how-num { display: inline-flex; width: 44px; height: 44px; border-radius: 999px; background: var(--terracotta-500); color: white; font-family: var(--font-display); font-weight: 800; font-size: 22px; align-items: center; justify-content: center; border: 2px solid var(--ink-700); margin-bottom: 18px; }
+.mk-how-step h3 { font-family: var(--font-display); font-weight: 700; font-size: 24px; line-height: 1.2; color: var(--ink-700); margin-bottom: 10px; }
+.mk-how-step p { font-size: 16px; line-height: 1.55; color: var(--ink-400); }
+
+/* ---------- Quote ---------- */
+.mk-quote-section { padding: 96px 40px; max-width: 800px; margin: 0 auto; text-align: center; position: relative; }
+.mk-quote-doodle { position: absolute; top: 60px; left: 60px; transform: rotate(-15deg); }
+.mk-quote { }
+.mk-quote p { font-family: var(--font-display); font-weight: 500; font-size: 32px; line-height: 1.3; color: var(--ink-700); letter-spacing: -0.01em; margin-bottom: 20px; text-wrap: pretty; font-variation-settings: "opsz" 96, "SOFT" 100; }
+.mk-quote p em { color: var(--terracotta-500); font-style: italic; }
+.mk-quote footer { font-size: 15px; color: var(--ink-400); }
+.mk-quote footer strong { color: var(--ink-700); }
+
+/* ---------- CTA Band ---------- */
+.mk-cta-band { background: var(--sun-300); padding: 96px 40px; text-align: center; position: relative; overflow: hidden; border-top: 2px solid var(--ink-700); border-bottom: 2px solid var(--ink-700); }
+.mk-cta-band h2 { font-family: var(--font-display); font-weight: 800; font-size: 64px; line-height: 1.0; letter-spacing: -0.025em; color: var(--ink-700); margin-bottom: 18px; font-variation-settings: "opsz" 144, "SOFT" 50, "WONK" 1; }
+.mk-cta-band p { font-size: 20px; color: var(--ink-500); margin-bottom: 32px; }
+.mk-cta-doodle { position: absolute; }
+.mk-cta-doodle-1 { top: 40px; left: 8%; transform: rotate(-15deg); }
+.mk-cta-doodle-2 { bottom: 40px; right: 10%; transform: rotate(20deg); }
+
+/* ---------- Footer ---------- */
+.mk-footer { background: var(--pine-500); color: var(--cream-100); padding: 64px 40px 32px; }
+.mk-footer-top { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.5fr; gap: 56px; padding-bottom: 48px; border-bottom: 1px solid rgba(251, 247, 241, 0.15); }
+.mk-footer-brand p { font-size: 15px; line-height: 1.55; color: rgba(251, 247, 241, 0.7); margin-top: 16px; max-width: 320px; }
+.mk-footer-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.mk-footer-cols h4 { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cream-50); margin-bottom: 16px; }
+.mk-footer-cols a { display: block; font-size: 15px; color: rgba(251, 247, 241, 0.7); padding: 4px 0; }
+.mk-footer-cols a:hover { color: var(--cream-50); }
+.mk-footer-bottom { max-width: 1280px; margin: 32px auto 0; display: flex; justify-content: space-between; font-size: 14px; color: rgba(251, 247, 241, 0.6); }
+.mk-footer-tag { font-family: var(--font-hand); font-size: 22px; color: var(--sun-300); }
+
+/* ---------- Modal ---------- */
+.mk-modal-backdrop { position: fixed; inset: 0; background: rgba(26, 20, 14, 0.45); backdrop-filter: blur(4px); z-index: 100; display: grid; place-items: center; padding: 24px; animation: fade 200ms; }
+@keyframes fade { from { opacity: 0; } }
+.mk-modal { background: var(--cream-50); border-radius: 24px; padding: 48px 40px 40px; max-width: 480px; width: 100%; box-shadow: var(--shadow-xl); position: relative; animation: pop 280ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+@keyframes pop { from { opacity: 0; transform: translateY(20px) scale(0.96); } }
+.mk-modal h2 { font-family: var(--font-display); font-weight: 700; font-size: 32px; line-height: 1.1; letter-spacing: -0.02em; color: var(--ink-700); margin-bottom: 8px; }
+.mk-modal-sub { font-size: 15px; color: var(--ink-400); margin-bottom: 24px; }
+.mk-modal-close { position: absolute; top: 18px; right: 18px; width: 36px; height: 36px; border-radius: 999px; display: grid; place-items: center; color: var(--ink-700); }
+.mk-modal-close:hover { background: var(--cream-100); }
+.mk-input { width: 100%; padding: 14px 16px; border-radius: 12px; border: 1.5px solid var(--cream-300); background: white; font-family: inherit; font-size: 16px; color: var(--ink-700); margin-bottom: 16px; outline: none; transition: all 150ms; }
+.mk-input:focus { border-color: var(--terracotta-500); box-shadow: 0 0 0 3px rgba(216,95,42,0.18); }
+.mk-modal-checks { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.mk-check-pill { padding: 10px 16px; border: 1.5px solid var(--cream-300); border-radius: 999px; background: white; font-size: 14px; font-weight: 600; color: var(--ink-700); transition: all 150ms; }
+.mk-check-pill.on { background: var(--terracotta-500); color: white; border-color: var(--ink-700); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .mk-nav { display: none; }
+  .mk-hero-title { font-size: 56px; }
+  .mk-cat-grid { grid-template-columns: 1fr 1fr; }
+  .mk-how-grid { grid-template-columns: 1fr; }
+  .mk-footer-top { grid-template-columns: 1fr; }
+}

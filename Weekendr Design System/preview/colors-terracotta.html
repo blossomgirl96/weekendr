@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  body { gap: 14px; padding: 22px 28px; }
+  .head { display: flex; align-items: baseline; justify-content: space-between; }
+  .name { font-family: var(--font-display); font-weight: 700; font-size: 18px; letter-spacing: -0.01em; color: var(--ink-700); }
+  .meta { font-family: var(--font-mono); font-size: 11px; color: var(--fg-muted); }
+
+  /* Combo block — primary swatch beside accent pairings */
+  .combo { display: grid; grid-template-columns: 220px 1fr; gap: 16px; align-items: stretch; }
+  .hero-sw { border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; justify-content: space-between; min-height: 120px; box-shadow: var(--shadow-sm); color: #FBF7F1; background: #D85F2A; }
+  .hero-sw .top { font-family: var(--font-display); font-weight: 800; font-size: 22px; line-height: 1; }
+  .hero-sw .bot { display: flex; justify-content: space-between; align-items: flex-end; font-family: var(--font-mono); font-size: 11px; opacity: 0.85; }
+
+  .pairs { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 1fr 1fr; gap: 6px; }
+  .pair { border-radius: 10px; padding: 8px 10px; display: flex; flex-direction: column; justify-content: space-between; min-height: 56px; font-family: var(--font-sans); font-size: 11px; font-weight: 600; box-shadow: var(--shadow-xs); }
+  .pair .swatch { width: 18px; height: 18px; border-radius: 5px; border: 1.5px solid currentColor; }
+  .pair .lbl { display: flex; align-items: center; gap: 6px; opacity: 0.95; }
+  .pair .hex { font-family: var(--font-mono); font-size: 9.5px; font-weight: 500; opacity: 0.7; }
+
+  /* Pair color combos using the brand palette */
+  .p-pine  { background: #2C5E2A; color: #FBF7F1; }
+  .p-sun   { background: #EDB821; color: #1A140E; }
+  .p-cream { background: #F6EFE3; color: #1A140E; }
+  .p-sky   { background: #3C879D; color: #FBF7F1; }
+  .p-ink   { background: #1A140E; color: #FBF7F1; }
+  .p-rose  { background: #FADFD0; color: #8E3819; }
+  .p-deep  { background: #642813; color: #F6EFE3; }
+  .p-leaf  { background: #6FA269; color: #1A140E; }
+
+  .swatch-pine  { background: #D85F2A; }
+  .swatch-sun   { background: #D85F2A; }
+  .swatch-cream { background: #D85F2A; }
+  .swatch-sky   { background: #D85F2A; }
+  .swatch-ink   { background: #D85F2A; }
+  .swatch-rose  { background: #D85F2A; }
+  .swatch-deep  { background: #D85F2A; }
+  .swatch-leaf  { background: #D85F2A; }
+</style></head>
+<body>
+  <div class="head">
+    <span class="name">Terracotta + the rest of the family</span>
+    <span class="meta">primary <b style="font-family:inherit;color:var(--ink-700)">#D85F2A</b> · pair with one accent, rarely two</span>
+  </div>
+
+  <div class="combo">
+    <div class="hero-sw">
+      <div class="top">Terracotta<br/>500</div>
+      <div class="bot"><span>#D85F2A</span><span>primary</span></div>
+    </div>
+
+    <div class="pairs">
+      <div class="pair p-pine"><span class="lbl"><span class="swatch swatch-pine"></span>+ Pine</span><span class="hex">#2C5E2A · grounding</span></div>
+      <div class="pair p-sun"><span class="lbl"><span class="swatch swatch-sun"></span>+ Sun</span><span class="hex">#EDB821 · warm pop</span></div>
+      <div class="pair p-cream"><span class="lbl"><span class="swatch swatch-cream"></span>+ Cream</span><span class="hex">#F6EFE3 · default</span></div>
+      <div class="pair p-sky"><span class="lbl"><span class="swatch swatch-sky"></span>+ Sky</span><span class="hex">#3C879D · cool break</span></div>
+      <div class="pair p-ink"><span class="lbl"><span class="swatch swatch-ink"></span>+ Ink</span><span class="hex">#1A140E · drawn outline</span></div>
+      <div class="pair p-rose"><span class="lbl"><span class="swatch swatch-rose"></span>+ Rose</span><span class="hex">#FADFD0 · soft tints</span></div>
+      <div class="pair p-leaf"><span class="lbl"><span class="swatch swatch-leaf"></span>+ Leaf</span><span class="hex">#6FA269 · light pine</span></div>
+      <div class="pair p-deep"><span class="lbl"><span class="swatch swatch-deep"></span>+ Mahogany</span><span class="hex">#642813 · deep shade</span></div>
+    </div>
+  </div>
+</body></html>

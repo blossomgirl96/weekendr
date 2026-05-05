@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  body { gap: 12px; padding: 22px 28px; flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
+  .card { background: white; border-radius: 18px; padding: 0; box-shadow: var(--shadow-sm); width: 220px; overflow: hidden; transition: all 200ms cubic-bezier(0.22,1,0.36,1); }
+  .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+  .photo { height: 110px; background: linear-gradient(135deg, #F5BFA1, #EDB821); position: relative; }
+  .photo .badge { position: absolute; top: 10px; left: 10px; background: white; color: var(--ink-700); font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 999px; box-shadow: var(--shadow-xs); }
+  .photo .heart { position: absolute; top: 10px; right: 10px; width: 32px; height: 32px; border-radius: 999px; background: rgba(255,255,255,0.92); display: grid; place-items: center; color: var(--terracotta-500); font-size: 16px; }
+  .body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; }
+  .body h3 { font-family: "Fraunces", serif; font-weight: 700; font-size: 18px; line-height: 1.2; color: var(--ink-700); margin: 0; }
+  .meta { display: flex; gap: 8px; font-size: 12px; color: var(--ink-400); align-items: center; }
+  .meta .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--cream-400); }
+  .price { font-family: "JetBrains Mono", monospace; font-weight: 600; color: var(--pine-500); font-size: 13px; }
+
+  .photo2 { background: linear-gradient(135deg, #6FA269, #2C5E2A); }
+  .photo3 { background: linear-gradient(135deg, #62A9BC, #266D82); }
+</style></head>
+<body>
+  <div class="card">
+    <div class="photo"><span class="badge">Saturday</span><span class="heart">♥</span></div>
+    <div class="body">
+      <h3>Pumpkin patch &amp; hayride</h3>
+      <div class="meta"><span>2 hr</span><span class="dot"></span><span>Outdoor</span></div>
+      <div class="price">$12 a kid</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="photo photo2"><span class="badge">Sunday</span><span class="heart">♥</span></div>
+    <div class="body">
+      <h3>Forest sounds story walk</h3>
+      <div class="meta"><span>45 min</span><span class="dot"></span><span>Outdoor · Free</span></div>
+      <div class="price">Free</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="photo photo3"><span class="badge">Both days</span><span class="heart">♥</span></div>
+    <div class="body">
+      <h3>Aquarium late entry</h3>
+      <div class="meta"><span>1.5 hr</span><span class="dot"></span><span>Indoor</span></div>
+      <div class="price">$18 a kid</div>
+    </div>
+  </div>
+</body></html>

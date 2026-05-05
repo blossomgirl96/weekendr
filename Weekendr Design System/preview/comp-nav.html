@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  body { gap: 12px; padding: 22px 28px; flex-direction: row; align-items: flex-start; gap: 18px; flex-wrap: wrap; }
+  .col { display: flex; flex-direction: column; gap: 6px; }
+  .lbl { font-size: 11px; color: var(--fg-muted); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .nav { display: flex; gap: 4px; padding: 6px; background: white; border-radius: 999px; border: 1px solid var(--cream-200); }
+  .nav a { padding: 8px 16px; border-radius: 999px; font-family: "Plus Jakarta Sans", sans-serif; font-size: 14px; font-weight: 600; color: var(--ink-400); text-decoration: none; }
+  .nav a.active { background: var(--ink-700); color: var(--cream-50); }
+
+  .tabs { display: flex; gap: 18px; border-bottom: 1.5px solid var(--cream-200); padding: 0 4px; }
+  .tabs a { padding: 10px 0; font-family: "Plus Jakarta Sans", sans-serif; font-size: 14px; font-weight: 600; color: var(--ink-300); text-decoration: none; border-bottom: 2px solid transparent; margin-bottom: -1.5px; }
+  .tabs a.active { color: var(--ink-700); border-color: var(--terracotta-500); }
+
+  .toggle { display: inline-flex; background: var(--cream-100); padding: 4px; border-radius: 12px; gap: 2px; }
+  .toggle button { background: transparent; border: none; padding: 8px 16px; border-radius: 9px; font-family: "Plus Jakarta Sans", sans-serif; font-size: 13px; font-weight: 600; color: var(--ink-400); cursor: pointer; }
+  .toggle button.on { background: white; color: var(--ink-700); box-shadow: var(--shadow-xs); }
+</style></head>
+<body>
+  <div class="col"><span class="lbl">Top nav</span>
+    <div class="nav"><a class="active">Browse</a><a>This weekend</a><a>Favorites</a><a>Family</a></div>
+  </div>
+  <div class="col"><span class="lbl">Tabs</span>
+    <div class="tabs"><a class="active">Saturday</a><a>Sunday</a><a>Next weekend</a></div>
+  </div>
+  <div class="col"><span class="lbl">Segment</span>
+    <div class="toggle"><button class="on">List</button><button>Map</button><button>Calendar</button></div>
+  </div>
+</body></html>

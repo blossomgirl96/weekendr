@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  body { gap: 12px; padding: 22px 28px; }
+  .alert { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: 14px; max-width: 580px; }
+  .alert .ico { width: 24px; height: 24px; border-radius: 999px; display: grid; place-items: center; flex-shrink: 0; font-weight: 700; font-size: 14px; }
+  .alert .body { display: flex; flex-direction: column; gap: 2px; }
+  .alert h4 { font-family: "Plus Jakarta Sans", sans-serif; font-size: 14px; font-weight: 700; color: var(--ink-700); margin: 0; }
+  .alert p { font-family: "Plus Jakarta Sans", sans-serif; font-size: 13px; color: var(--ink-400); margin: 0; line-height: 1.45; }
+  .a-success { background: var(--pine-50); border: 1px solid var(--pine-100); }
+  .a-success .ico { background: var(--pine-500); color: white; }
+  .a-info { background: var(--sky-50); border: 1px solid var(--sky-100); }
+  .a-info .ico { background: var(--sky-400); color: white; }
+  .a-warn { background: var(--sun-50); border: 1px solid var(--sun-100); }
+  .a-warn .ico { background: var(--sun-400); color: var(--ink-700); }
+  .a-danger { background: #FBEEEC; border: 1px solid #F5D2CC; }
+  .a-danger .ico { background: var(--danger); color: white; }
+</style></head>
+<body>
+  <div class="alert a-success"><div class="ico">✓</div><div class="body"><h4>Saved to Saturday</h4><p>You can move it to Sunday anytime — just drag.</p></div></div>
+  <div class="alert a-info"><div class="ico">i</div><div class="body"><h4>Rain in the forecast</h4><p>We swapped two outdoor picks for indoor ones.</p></div></div>
+  <div class="alert a-warn"><div class="ico">!</div><div class="body"><h4>Three spots left</h4><p>This one tends to fill up by Friday.</p></div></div>
+  <div class="alert a-danger"><div class="ico">×</div><div class="body"><h4>Couldn't load activities</h4><p>Check your connection and we'll try again.</p></div></div>
+</body></html>

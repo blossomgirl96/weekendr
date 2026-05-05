@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sniglet:wght@800&family=Bagel+Fat+One&display=swap" rel="stylesheet">
+<style>
+  body { gap: 16px; padding: 28px 32px; align-items: flex-start; }
+  .row { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+  .lockup { display: flex; gap: 10px; align-items: center; padding: 10px 18px 12px; border-radius: 18px; }
+  .wordmark { font-family: "Sniglet", "Plus Jakarta Sans", sans-serif; font-weight: 800; font-size: 42px; letter-spacing: -0.02em; color: var(--ink-700); line-height: 1; }
+  /* Custom letter playfulness */
+  .wordmark .e1 { display: inline-block; transform: rotate(-6deg) translateY(2px); color: var(--terracotta-500); }
+  .wordmark .e2 { display: inline-block; transform: rotate(4deg) translateY(-1px); }
+  .wordmark .r  { display: inline-block; transform: rotate(8deg); color: var(--terracotta-500); }
+  .sun { width: 44px; height: 44px; flex-shrink: 0; transform: rotate(-12deg); transition: transform 600ms; }
+  .lockup:hover .sun { transform: rotate(180deg); }
+  .light { background: var(--cream-50); }
+  .dark { background: var(--ink-700); }
+  .dark .wordmark { color: var(--cream-50); }
+  .dark .wordmark .e1, .dark .wordmark .r { color: var(--sun-300); }
+  .terra { background: var(--terracotta-500); }
+  .terra .wordmark { color: var(--cream-50); }
+  .terra .wordmark .e1, .terra .wordmark .r { color: var(--sun-300); }
+  .sun-bg { background: var(--sun-300); }
+  .sun-bg .wordmark .e1 { color: var(--terracotta-500); }
+  .sun-bg .wordmark .e2 { color: var(--pine-500); }
+  .sun-bg .wordmark .r { color: var(--terracotta-500); }
+
+  .compact { padding: 8px 14px 10px; }
+  .compact .wordmark { font-size: 24px; }
+  .compact .sun { width: 26px; height: 26px; }
+
+  .meta { font-family: var(--font-mono); font-size: 10px; color: var(--fg-muted); margin-top: 6px; width: 100%; }
+</style></head>
+<body>
+  <div class="row">
+    <div class="lockup light">
+      <img class="sun" src="../assets/icon.svg" alt="">
+      <span class="wordmark">w<span class="e1">e</span><span class="e2">e</span>k<span class="e1">e</span>nd<span class="r">r</span></span>
+    </div>
+    <div class="lockup dark">
+      <img class="sun" src="../assets/icon.svg" alt="">
+      <span class="wordmark">w<span class="e1">e</span><span class="e2">e</span>k<span class="e1">e</span>nd<span class="r">r</span></span>
+    </div>
+    <div class="lockup terra">
+      <img class="sun" src="../assets/icon.svg" alt="" style="filter:brightness(10) saturate(0)">
+      <span class="wordmark">w<span class="e1">e</span><span class="e2">e</span>k<span class="e1">e</span>nd<span class="r">r</span></span>
+    </div>
+    <div class="lockup sun-bg">
+      <img class="sun" src="../assets/icon.svg" alt="" style="filter:brightness(0)">
+      <span class="wordmark">w<span class="e1">e</span><span class="e2">e</span>k<span class="e1">e</span>nd<span class="r">r</span></span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="lockup light compact"><img class="sun" src="../assets/icon.svg" alt=""><span class="wordmark">w<span class="e1">e</span><span class="e2">e</span>k<span class="e1">e</span>nd<span class="r">r</span></span></div>
+    <div class="lockup dark compact"><img class="sun" src="../assets/icon.svg" alt=""><span class="wordmark">w<span class="e1">e</span><span class="e2">e</span>k<span class="e1">e</span>nd<span class="r">r</span></span></div>
+    <div class="lockup terra compact"><img class="sun" src="../assets/icon.svg" alt="" style="filter:brightness(10) saturate(0)"><span class="wordmark">w<span class="e1">e</span><span class="e2">e</span>k<span class="e1">e</span>nd<span class="r">r</span></span></div>
+  </div>
+  <span class="meta">Sniglet 800 · chunky rounded sans · letters tilt and shift color · sun rotates on hover</span>
+</body></html>
