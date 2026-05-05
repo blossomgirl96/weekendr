@@ -1,0 +1,5 @@
+{
+  "name": "Weekndr",
+  "description": "The ultimate weekend planner for busy parents. Age-appropriate, budget-aware, and weather-proof family plans in seconds.",
+  "requestFramePermissions": ["geolocation"]
+}

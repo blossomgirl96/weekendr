@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", sans-serif;
+  
+  /* Fallback hex colors for html2canvas compatibility */
+  --color-orange-50: #fff7ed;
+  --color-orange-100: #ffedd5;
+  --color-orange-500: #f97316;
+  --color-orange-600: #ea580c;
+  --color-orange-700: #c2410c;
+  
+  --color-blue-50: #eff6ff;
+  --color-blue-100: #dbeafe;
+  --color-blue-400: #60a5fa;
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
+  --color-blue-800: #1e40af;
+  
+  --color-pink-50: #fdf2f8;
+  --color-pink-500: #ec4899;
+  --color-pink-600: #db2777;
+  
+  --color-purple-50: #f5f3ff;
+  --color-purple-600: #7c3aed;
+  --color-purple-700: #6d28d9;
+  
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+  
+  --color-red-50: #fef2f2;
+  --color-red-100: #fee2e2;
+  --color-red-400: #f87171;
+  --color-red-500: #ef4444;
+  --color-red-600: #dc2626;
+  
+  --color-green-50: #f0fdf4;
+  --color-green-500: #22c55e;
+  --color-green-600: #16a34a;
+  
+  --color-yellow-300: #fde047;
+  --color-yellow-400: #facc15;
+  --color-yellow-500: #eab308;
+}
+
+body {
+  @apply bg-[#FDF8F3] text-gray-900 font-sans antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-display tracking-tight;
+}
+
+@media print {
+  @page {
+    margin: 20mm;
+  }
+
+  body {
+    background: white !important;
+    padding: 0 !important;
+  }
+
+  /* Hide non-essential UI */
+  header, 
+  footer, 
+  nav, 
+  button, 
+  .no-print {
+    display: none !important;
+  }
+
+  /* Ensure cards don't break mid-page */
+  .bg-white {
+    break-inside: avoid;
+    border: 1px solid #eee !important;
+    box-shadow: none !important;
+  }
+
+  /* Optimize colors for printing */
+  .bg-orange-500, .bg-blue-500, .bg-purple-600, .bg-indigo-700, .bg-orange-100 {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Show a clean print title that might be hidden on web */
+  .print-header {
+    display: block !important;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+}
+
+.print-header {
+  display: none;
+}
