@@ -1,5 +1,5 @@
-@import "../weekendr-design-system/colors_and_type.css";
 @import url("https://fonts.googleapis.com/css2?family=Sniglet:wght@800&display=swap");
+@import "../weekendr-design-system/colors_and_type.css";
 @import "tailwindcss";
 
 @theme {
