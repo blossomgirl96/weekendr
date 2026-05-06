@@ -22,12 +22,12 @@ function DaySection({ day, plan, color, isSunday }: { day: string, plan: DayPlan
       className="flex flex-col"
     >
       <div className="flex items-center gap-3 mb-8">
-        <div className={`w-12 h-12 ${bgClass} rounded-2xl flex items-center justify-center text-cream-50 shadow-lg`}>
+        <div className={`w-12 h-12 ${bgClass} rounded-2xl flex items-center justify-center text-cream-50 shadow-[0_4px_10px_-2px_rgba(38,31,24,0.18)]`}>
           <Calendar className="w-6 h-6" />
         </div>
         <div>
           <h2 className="text-3xl font-black text-ink-700">{day}</h2>
-          <p className="text-ink-400 text-sm">{isSunday ? 'Making memories.' : 'Adventure awaits.'}</p>
+          <p className="text-ink-400 text-sm">{isSunday ? 'Make Sunday count.' : 'Let\'s make it a good one.'}</p>
         </div>
       </div>
 
@@ -37,10 +37,10 @@ function DaySection({ day, plan, color, isSunday }: { day: string, plan: DayPlan
         ))}
       </div>
 
-      <div className="mt-10 p-6 bg-cream-100 rounded-[20px] border border-dashed border-cream-300">
+      <div className="mt-10 p-6 rounded-[20px] bg-cream-100 border border-dashed border-cream-300">
         <div className="flex items-center gap-2 mb-5">
           <ShieldCheck className="w-5 h-5 text-ink-400" />
-          <h3 className="text-sm font-bold text-ink-400 uppercase tracking-wider">Plan B — indoor fallbacks</h3>
+          <p className="text-xs font-bold text-ink-400 uppercase tracking-wider" style={{ fontFamily: 'var(--font-sans)' }}>Plan B — indoor fallbacks</p>
         </div>
         <div className="grid grid-cols-1 gap-5">
           {plan.planB.map((activity, idx) => (
@@ -190,7 +190,7 @@ export function WeekendPlanView({ plan, onBack }: Props) {
           <button
             onClick={handleDownloadPDF}
             disabled={isExporting}
-            className="flex items-center gap-2 px-6 py-3 bg-ink-700 text-cream-50 rounded-xl font-bold hover:bg-ink-600 transition-all shadow-md hover:scale-105 active:scale-95 disabled:opacity-50"
+            className="flex items-center gap-2 px-6 py-3 bg-ink-700 text-cream-50 rounded-xl font-bold hover:bg-ink-600 transition-all shadow-md disabled:opacity-50"
           >
             {isExporting ? <Loader2 className="w-5 h-5 animate-spin" /> : <Download className="w-5 h-5" />}
             {isExporting ? 'Creating PDF…' : 'Save plan'}

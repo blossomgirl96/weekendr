@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Clock, DollarSign, Info, ExternalLink, Car, Baby, X } from 'lucide-react';
+import { MapPin, Clock, DollarSign, Info, ExternalLink, Car, Baby, X, Home, Leaf } from 'lucide-react';
 import { Activity } from '../types';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -8,7 +8,7 @@ interface Props {
   index: number;
 }
 
-export function ActivityCard({ activity, index }: Props) {
+export function ActivityCard({ activity }: Props) {
   const [activeModal, setActiveModal] = React.useState<{ title: string; content: string } | null>(null);
   const imageUrl = `https://picsum.photos/seed/${activity.title.replace(/\s/g, '')}/800/400`;
 
@@ -18,7 +18,7 @@ export function ActivityCard({ activity, index }: Props) {
     : activity.mapsUrl;
 
   return (
-    <div className="bg-white rounded-[18px] overflow-hidden shadow-[0_4px_10px_-2px_rgba(38,31,24,0.08)] border border-cream-200 hover:shadow-[0_12px_24px_-8px_rgba(38,31,24,0.14)] transition-all group flex flex-col">
+    <div className="bg-white rounded-[18px] overflow-hidden shadow-[0_4px_10px_-2px_rgba(38,31,24,0.08)] border border-cream-200 hover:shadow-[0_12px_24px_-8px_rgba(38,31,24,0.14)] hover:-translate-y-0.5 transition-all group flex flex-col">
       <div className="relative h-48 overflow-hidden shrink-0">
         <img
           src={imageUrl}
@@ -26,8 +26,11 @@ export function ActivityCard({ activity, index }: Props) {
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-bold text-terracotta-600 shadow-sm">
-          {activity.isIndoor ? '🏠 Indoor' : '🌳 Outdoor'}
+        <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-bold text-terracotta-600 shadow-sm flex items-center gap-1.5">
+          {activity.isIndoor
+            ? <><Home className="w-3.5 h-3.5" /> Indoor</>
+            : <><Leaf className="w-3.5 h-3.5" /> Outdoor</>
+          }
         </div>
       </div>
 
@@ -79,11 +82,11 @@ export function ActivityCard({ activity, index }: Props) {
                 className="bg-cream-50 p-2 rounded-lg text-center hover:bg-cream-100 transition-colors cursor-pointer group/cost block w-full overflow-hidden border border-cream-100"
               >
                 <span className="block mb-0.5 group-hover/cost:text-terracotta-500 transition-colors truncate">{item.label}:</span>
-                <span className="text-ink-600 block truncate">{item.content}</span>
+                <span className="text-ink-600 block truncate font-mono">{item.content}</span>
               </button>
             ))}
           </div>
-          <div className="text-right text-sm font-black text-pine-500">
+          <div className="text-right text-sm font-black text-pine-500 font-mono">
             Total est: ${activity.cost.total}
           </div>
         </div>
@@ -99,7 +102,7 @@ export function ActivityCard({ activity, index }: Props) {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9, y: 20 }}
                 onClick={(e) => e.stopPropagation()}
-                className="bg-white rounded-[24px] p-8 max-w-sm w-full shadow-[0_24px_48px_-16px_rgba(38,31,24,0.22)] relative border border-cream-200"
+                className="bg-white rounded-lg p-8 max-w-sm w-full shadow-[0_24px_48px_-16px_rgba(38,31,24,0.22)] relative border border-cream-200"
               >
                 <button
                   onClick={() => setActiveModal(null)}
@@ -121,7 +124,7 @@ export function ActivityCard({ activity, index }: Props) {
           )}
         </AnimatePresence>
 
-        <div className="bg-sky-50 p-4 rounded-[14px] flex gap-3 shrink-0 border border-sky-100">
+        <div className="bg-sky-50 p-4 rounded-lg flex gap-3 shrink-0 border border-sky-100">
           <Baby className="w-5 h-5 text-sky-400 shrink-0 mt-0.5" />
           <div className="space-y-1">
             <p className="text-xs font-bold text-sky-500 uppercase tracking-wider">Age suitability</p>
@@ -129,7 +132,7 @@ export function ActivityCard({ activity, index }: Props) {
           </div>
         </div>
 
-        <div className="bg-terracotta-50 p-4 rounded-[14px] flex gap-3 shrink-0 border border-terracotta-100">
+        <div className="bg-terracotta-50 p-4 rounded-lg flex gap-3 shrink-0 border border-terracotta-100">
           <Info className="w-5 h-5 text-terracotta-400 shrink-0 mt-0.5" />
           <div className="space-y-1">
             <p className="text-xs font-bold text-terracotta-600 uppercase tracking-wider">Why kids love it</p>

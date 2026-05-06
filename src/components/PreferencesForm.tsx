@@ -58,7 +58,7 @@ export function PreferencesForm({ onSubmit, isLoading }: Props) {
   };
 
   const addKid = () => {
-    setKids([...kids, { id: Math.random().toString(36).substr(2, 9), age: 5 }]);
+    setKids([...kids, { id: Math.random().toString(36).substring(2, 11), age: 5 }]);
   };
 
   const removeKid = (id: string) => {
@@ -71,7 +71,7 @@ export function PreferencesForm({ onSubmit, isLoading }: Props) {
     setKids(kids.map(k => k.id === id ? { ...k, age } : k));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!startingAddress || !targetLocality) return;
     onSubmit({ startingAddress, targetLocality, kids, interests: selectedInterests, budgetCeiling, vibe });
@@ -84,7 +84,7 @@ export function PreferencesForm({ onSubmit, isLoading }: Props) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8 bg-white p-8 rounded-[24px] shadow-[0_12px_24px_-8px_rgba(38,31,24,0.12)] border border-cream-200">
+    <form onSubmit={handleSubmit} className="space-y-8 bg-white p-8 rounded-[24px] shadow-[0_4px_10px_-2px_rgba(38,31,24,0.08)] border border-cream-200">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-3 relative">
           <label className="flex items-center gap-2 text-base font-semibold text-ink-600">
@@ -98,11 +98,11 @@ export function PreferencesForm({ onSubmit, isLoading }: Props) {
               value={startingAddress}
               onChange={(e) => handleLocationChange(e.target.value, 'starting')}
               onBlur={() => setTimeout(() => setActiveSearch(prev => prev === 'starting' ? null : prev), 200)}
-              className="w-full px-4 py-3 rounded-xl border border-cream-200 bg-cream-50 focus:ring-2 focus:ring-terracotta-400 focus:border-transparent outline-none transition-all text-ink-700 placeholder:text-ink-300"
+              className="w-full px-4 py-3 rounded-xl border border-cream-200 bg-cream-50 focus:ring-[3px] focus:ring-terracotta-500/50 focus:ring-offset-2 focus:border-transparent outline-none transition-all text-ink-700 placeholder:text-ink-300"
               required
             />
             {activeSearch === 'starting' && suggestions.length > 0 && (
-              <div className="absolute z-50 w-full mt-2 bg-white border border-cream-200 rounded-xl shadow-[0_12px_24px_-8px_rgba(38,31,24,0.14)] overflow-hidden">
+              <div className="absolute z-50 w-full mt-2 rounded-xl bg-white border border-cream-200 shadow-[0_12px_24px_-8px_rgba(38,31,24,0.14)] overflow-hidden">
                 {suggestions.map((city) => (
                   <button
                     key={city}
@@ -136,7 +136,7 @@ export function PreferencesForm({ onSubmit, isLoading }: Props) {
               required
             />
             {activeSearch === 'target' && suggestions.length > 0 && (
-              <div className="absolute z-50 w-full mt-2 bg-white border border-cream-200 rounded-xl shadow-[0_12px_24px_-8px_rgba(38,31,24,0.14)] overflow-hidden">
+              <div className="absolute z-50 w-full mt-2 rounded-xl bg-white border border-cream-200 shadow-[0_12px_24px_-8px_rgba(38,31,24,0.14)] overflow-hidden">
                 {suggestions.map((city) => (
                   <button
                     key={city}
@@ -213,7 +213,7 @@ export function PreferencesForm({ onSubmit, isLoading }: Props) {
               className={cn(
                 "px-4 py-2 rounded-full border text-sm font-medium transition-all",
                 selectedInterests.includes(interest)
-                  ? "bg-terracotta-500 border-terracotta-500 text-white shadow-sm"
+                  ? "bg-terracotta-500 border-ink-700 text-white shadow-sm"
                   : "bg-white border-cream-200 text-ink-500 hover:border-terracotta-300 hover:text-terracotta-600"
               )}
             >
@@ -257,7 +257,7 @@ export function PreferencesForm({ onSubmit, isLoading }: Props) {
                 className={cn(
                   "flex items-center justify-center gap-2 px-4 py-3 rounded-xl border text-sm font-medium transition-all",
                   vibe === id
-                    ? "bg-pine-500 border-pine-500 text-white shadow-sm"
+                    ? "bg-pine-500 border-ink-700 text-white shadow-sm"
                     : "bg-white border-cream-200 text-ink-500 hover:border-pine-300 hover:text-pine-600"
                 )}
               >
@@ -272,7 +272,7 @@ export function PreferencesForm({ onSubmit, isLoading }: Props) {
       <button
         type="submit"
         disabled={isLoading}
-        className="w-full py-4 bg-terracotta-500 text-cream-50 rounded-full font-bold text-lg shadow-[0_6px_0_#1A140E] hover:bg-terracotta-600 hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[0_3px_0_#1A140E] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none disabled:translate-y-0 flex items-center justify-center gap-3"
+        className="w-full py-4 bg-terracotta-500 text-cream-50 rounded-full font-bold text-lg border-2 border-ink-700 shadow-[0_6px_0_#1A140E] hover:bg-terracotta-600 hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[0_3px_0_#1A140E] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none disabled:border-transparent disabled:translate-y-0 flex items-center justify-center gap-3"
       >
         {isLoading ? (
           <>
