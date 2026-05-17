@@ -1,64 +1,97 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500&family=Sniglet:wght@400;800&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Outfit", sans-serif;
-  
-  /* Fallback hex colors for html2canvas compatibility */
-  --color-orange-50: #fff7ed;
-  --color-orange-100: #ffedd5;
-  --color-orange-500: #f97316;
-  --color-orange-600: #ea580c;
-  --color-orange-700: #c2410c;
-  
-  --color-blue-50: #eff6ff;
-  --color-blue-100: #dbeafe;
-  --color-blue-400: #60a5fa;
-  --color-blue-500: #3b82f6;
-  --color-blue-600: #2563eb;
-  --color-blue-800: #1e40af;
-  
-  --color-pink-50: #fdf2f8;
-  --color-pink-500: #ec4899;
-  --color-pink-600: #db2777;
-  
-  --color-purple-50: #f5f3ff;
-  --color-purple-600: #7c3aed;
-  --color-purple-700: #6d28d9;
-  
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-display: "Fraunces", "Cooper Black", Georgia, serif;
+  --font-mono: "JetBrains Mono", "SF Mono", Menlo, monospace;
+
+  /* Terracotta */
+  --color-terracotta-50: #FDF4EF;
+  --color-terracotta-100: #F9E3D5;
+  --color-terracotta-200: #F2C9B3;
+  --color-terracotta-300: #E8A880;
+  --color-terracotta-500: #D85F2A;
+  --color-terracotta-600: #B84A1F;
+
+  /* Pine */
+  --color-pine-50: #EFF5EF;
+  --color-pine-100: #D5E6D5;
+  --color-pine-200: #AECCAD;
+  --color-pine-500: #2C5E2A;
+  --color-pine-700: #1E4020;
+
+  /* Sky */
+  --color-sky-50: #EFF5F7;
+  --color-sky-100: #D4E8EE;
+  --color-sky-400: #6AAABF;
+  --color-sky-500: #3C879D;
+  --color-sky-600: #2E6F82;
+
+  /* Sun */
+  --color-sun-400: #EDB821;
+
+  /* Cream */
+  --color-cream-50: #FBF7F1;
+  --color-cream-100: #F6EFE3;
+  --color-cream-200: #ECE0CC;
+
+  /* Ink */
+  --color-ink-400: #8A8073;
+  --color-ink-600: #5C5447;
+  --color-ink-900: #1A140E;
+
+  /* Grays (semantic fallbacks) */
   --color-gray-50: #f9fafb;
   --color-gray-100: #f3f4f6;
   --color-gray-200: #e5e7eb;
-  --color-gray-300: #d1d5db;
   --color-gray-400: #9ca3af;
   --color-gray-500: #6b7280;
   --color-gray-600: #4b5563;
   --color-gray-700: #374151;
-  --color-gray-800: #1f2937;
   --color-gray-900: #111827;
-  
   --color-red-50: #fef2f2;
   --color-red-100: #fee2e2;
-  --color-red-400: #f87171;
   --color-red-500: #ef4444;
   --color-red-600: #dc2626;
-  
-  --color-green-50: #f0fdf4;
-  --color-green-500: #22c55e;
-  --color-green-600: #16a34a;
-  
-  --color-yellow-300: #fde047;
-  --color-yellow-400: #facc15;
-  --color-yellow-500: #eab308;
 }
 
 body {
-  @apply bg-[#FDF8F3] text-gray-900 font-sans antialiased;
+  @apply bg-cream-50 text-ink-900 font-sans antialiased;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  @apply font-display tracking-tight;
+  @apply font-display;
+}
+
+/* Fraunces display — full personality axes */
+.display-hero {
+  font-family: "Fraunces", "Cooper Black", Georgia, serif;
+  font-weight: 800;
+  font-variation-settings: "opsz" 144, "SOFT" 50, "WONK" 1;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+/* Fraunces headline — slightly tamer */
+.display-headline {
+  font-family: "Fraunces", "Cooper Black", Georgia, serif;
+  font-weight: 700;
+  font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 1;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+/* Caveat handwritten accent — use once per screen max */
+.caveat {
+  font-family: "Caveat", cursive;
+  font-weight: 600;
+}
+
+/* Sniglet — logo wordmark only */
+.sniglet {
+  font-family: "Sniglet", cursive;
+  font-weight: 800;
 }
 
 @media print {
@@ -71,29 +104,20 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0 !important;
   }
 
-  /* Hide non-essential UI */
-  header, 
-  footer, 
-  nav, 
-  button, 
+  header,
+  footer,
+  nav,
+  button,
   .no-print {
     display: none !important;
   }
 
-  /* Ensure cards don't break mid-page */
   .bg-white {
     break-inside: avoid;
-    border: 1px solid #eee !important;
+    border: 1px solid #ECE0CC !important;
     box-shadow: none !important;
   }
 
-  /* Optimize colors for printing */
-  .bg-orange-500, .bg-blue-500, .bg-purple-600, .bg-indigo-700, .bg-orange-100 {
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-
-  /* Show a clean print title that might be hidden on web */
   .print-header {
     display: block !important;
     margin-bottom: 2rem;
@@ -102,5 +126,46 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .print-header {
+  display: none;
+}
+
+/* Google Places Autocomplete dropdown styling */
+.pac-container {
+  z-index: 9999;
+  border-radius: 12px;
+  border: 1px solid #ECE0CC;
+  box-shadow: 0 12px 24px -8px rgba(38, 31, 24, 0.14);
+  font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-size: 14px;
+  margin-top: 4px;
+  overflow: hidden;
+}
+
+.pac-item {
+  padding: 10px 16px;
+  border-top: 1px solid #F6EFE3;
+  color: #1A140E;
+  cursor: pointer;
+}
+
+.pac-item:first-child {
+  border-top: none;
+}
+
+.pac-item:hover,
+.pac-item-selected {
+  background-color: #FDF4EF;
+}
+
+.pac-item-query {
+  font-size: 14px;
+  color: #1A140E;
+}
+
+.pac-matched {
+  font-weight: 700;
+}
+
+.pac-icon {
   display: none;
 }

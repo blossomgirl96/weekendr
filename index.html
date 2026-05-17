@@ -3,24 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weekndr</title>
+    <title>Sundae</title>
     <meta name="description" content="The ultimate weekend planner for busy parents. Age-appropriate, budget-aware, and weather-proof family plans in seconds." />
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://weekndr-404456788844.us-west1.run.app" />
-    <meta property="og:title" content="Weekndr" />
+    <meta property="og:title" content="Sundae" />
     <meta property="og:description" content="The ultimate weekend planner for busy parents. Age-appropriate, budget-aware, and weather-proof family plans in seconds." />
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://weekndr-404456788844.us-west1.run.app" />
-    <meta property="twitter:title" content="Weekndr" />
+    <meta property="twitter:title" content="Sundae" />
     <meta property="twitter:description" content="The ultimate weekend planner for busy parents. Age-appropriate, budget-aware, and weather-proof family plans in seconds." />
 
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      window.initGoogleMaps = function () {
+        window.dispatchEvent(new Event('google-maps-ready'));
+      };
+    </script>
+    <script
+      async
+      src="https://maps.googleapis.com/maps/api/js?key=%VITE_GOOGLE_MAPS_API_KEY%&libraries=places&callback=initGoogleMaps"
+    ></script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -3,19 +3,30 @@ export interface Kid {
   age: number;
 }
 
+export interface UserProfile {
+  name?: string;
+  homeAddress: string;
+  kids: Kid[];
+  typicalInterests: string;
+  restrictions: string;
+}
+
 export interface KidPreferences {
   startingAddress: string;
   targetLocality: string;
   kids: Kid[];
   interests: string[];
   budgetCeiling: number;
+  freeOnly?: boolean;
   vibe: 'active' | 'educational' | 'relaxing' | 'creative';
+  weekendInterests?: string;
+  typicalInterests?: string;
+  restrictions?: string;
 }
 
 export interface CostBreakdown {
   entry: string;
   parking: string;
-  food: string;
   total: number;
 }
 
@@ -30,6 +41,8 @@ export interface Activity {
   ageSuitability: string;
   mapsUrl?: string;
   isIndoor: boolean;
+  tip?: string;
+  imageQuery?: string;
 }
 
 export interface DayPlan {
@@ -40,6 +53,5 @@ export interface DayPlan {
 export interface WeekendPlan {
   saturday: DayPlan;
   sunday: DayPlan;
-  tips: string[];
   weatherForecast: string;
 }

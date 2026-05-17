@@ -18,18 +18,25 @@ const activitySchema = {
       properties: {
         entry: { type: "string" },
         parking: { type: "string" },
-        food: { type: "string" },
         total: { type: "number" },
       },
-      required: ["entry", "parking", "food", "total"],
+      required: ["entry", "parking", "total"],
     },
     driveTime: { type: "string" },
     whyItsGreat: { type: "string" },
     ageSuitability: { type: "string" },
     mapsUrl: { type: "string" },
     isIndoor: { type: "boolean" },
+    tip: {
+      type: "string",
+      description: "A single actionable pro tip specific to this activity (e.g., 'Arrive 30 min before opening to beat crowds')",
+    },
+    imageQuery: {
+      type: "string",
+      description: "Short descriptive search phrase for a relevant stock photo (e.g., 'San Francisco Golden Gate Park children playing')",
+    },
   },
-  required: ["title", "description", "location", "time", "cost", "driveTime", "whyItsGreat", "ageSuitability", "isIndoor"],
+  required: ["title", "description", "location", "time", "cost", "driveTime", "whyItsGreat", "ageSuitability", "isIndoor", "tip", "imageQuery"],
 };
 
 const weekendPlanTool: Anthropic.Tool = {
@@ -54,10 +61,9 @@ const weekendPlanTool: Anthropic.Tool = {
         },
         required: ["primary", "planB"],
       },
-      tips: { type: "array", items: { type: "string" } },
       weatherForecast: { type: "string" },
     },
-    required: ["saturday", "sunday", "tips", "weatherForecast"],
+    required: ["saturday", "sunday", "weatherForecast"],
   },
 };
 
@@ -75,10 +81,13 @@ CRITICAL INSTRUCTIONS FOR 2026 REALISM:
 2. Budget Awareness: If the budget is low, prioritize free, public, or low-cost activities (parks, libraries, community festivals).
 3. Weather Awareness: Consider typical weather for the location and season. If rain or extreme heat is likely, prioritize indoor activities.
 4. Plan B (Indoor Fallback): For each day, provide 1-2 indoor backup activities.
-5. Detailed Cost Breakdown: For each activity, break down entry fees, parking, and typical food spend.
+5. Detailed Cost Breakdown: For each activity, break down entry fees and parking only (no food). The budget is per person.
 6. Drive Time: Estimate drive time from starting address to each activity.
 7. Age Suitability: Explicitly state why each activity suits the kids' ages.
-8. Maps URL: Provide a full Google Maps Search URL: https://www.google.com/maps/search/?api=1&query=[Place+Name]+[Location]`,
+8. Maps URL: Provide a full Google Maps Search URL: https://www.google.com/maps/search/?api=1&query=[Place+Name]+[Location]
+9. Per-Activity Pro Tip: For each activity, include one practical pro-tip specific to that activity. Examples: 'Arrive 30 min before opening to beat crowds', 'Bring a change of clothes for water splash pads', 'Weekday pricing applies if you go Monday — save 20%'.
+10. Image Query: For each activity, provide a short descriptive search phrase suitable for finding a relevant stock photo (e.g., 'San Francisco Golden Gate Park children playing', 'Chicago Museum of Science kids exhibit').
+11. Restrictions: Respect any stated family restrictions. Stroller = avoid activities with lots of stairs or uneven terrain. Food allergies = avoid recommending food venues that prominently feature that allergen, and flag any risk in the tip field.`,
         cache_control: { type: "ephemeral" },
       },
     ],
@@ -88,10 +97,13 @@ CRITICAL INSTRUCTIONS FOR 2026 REALISM:
         content: `Create a weekend plan for a family with these details:
 Starting From: ${prefs.startingAddress}
 Target Locality: ${prefs.targetLocality}
-Kids Ages: ${prefs.kids.map((k) => k.age).join(", ")}
+Kids: ${prefs.kids.map((k) => `${k.age}yo`).join(', ')}
 Interests: ${prefs.interests.length > 0 ? prefs.interests.join(", ") : "general family activities"}
-Budget Ceiling: $${prefs.budgetCeiling} (whole family, all costs included)
+Budget Ceiling: ${prefs.freeOnly ? 'FREE - prioritize ONLY free or zero-cost activities (parks, public spaces, free museum days, community events)' : `$${prefs.budgetCeiling} per person (entry + parking only, no food)`}
 Vibe: ${prefs.vibe}
+Profile interests: ${prefs.typicalInterests || 'Not specified'}
+This weekend specifically: ${prefs.weekendInterests || 'General family fun'}
+Restrictions/Accessibility: ${prefs.restrictions || 'None specified'}
 
 Find real, currently active places or events in the Target Locality. Include 2-3 primary activities per day.`,
       },
