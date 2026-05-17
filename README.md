@@ -1,3 +1,5 @@
+> **v3 note:** majorly, live integrations
+
 # Weekndr
 
 The ultimate weekend planner for busy parents. Enter your location, kids' ages, interests, and budget — get a full two-day family itinerary in seconds, with indoor backup plans built in.
