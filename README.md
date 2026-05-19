@@ -1,3 +1,5 @@
+> **v4 note:** modify save plan, integrate user feedback, save plan on internal database
+
 > **v3 note:** majorly, live integrations
 
 # Weekndr
