@@ -43,6 +43,22 @@ export interface Activity {
   isIndoor: boolean;
   tip?: string;
   imageQuery?: string;
+  eventImageUrl?: string;
+  eventSource?: string;
+  eventUrl?: string;
+}
+
+export interface LiveEvent {
+  title: string;
+  venue: string;
+  address: string;
+  date: string;
+  time: string;
+  priceRange: string;
+  ageNote?: string;
+  imageUrl?: string;
+  eventUrl: string;
+  source: 'ticketmaster' | 'eventbrite';
 }
 
 export interface DayPlan {

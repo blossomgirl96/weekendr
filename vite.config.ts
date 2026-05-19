@@ -17,8 +17,18 @@ export default defineConfig(({mode}) => {
     },
     server: {
       // HMR is disabled in AI Studio via DISABLE_HMR env var.
-      // Do not modifyâfile watching is disabled to prevent flickering during agent edits.
+      // Do not modify — file watching is disabled to prevent flickering during agent edits.
       hmr: process.env.DISABLE_HMR !== 'true',
+      proxy: {
+        '/api/eventbrite': {
+          target: 'https://www.eventbriteapi.com',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api\/eventbrite/, '/v3'),
+          headers: {
+            'Authorization': `Bearer ${env.VITE_EVENTBRITE_TOKEN ?? ''}`,
+          },
+        },
+      },
     },
   };
 });

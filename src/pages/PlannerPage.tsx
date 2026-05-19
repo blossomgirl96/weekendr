@@ -7,6 +7,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { AppHeader } from '../components/AppHeader';
 import { WeekendPlanView } from '../components/WeekendPlanView';
 import { generateWeekendPlan } from '../lib/claude';
+import { fetchLiveEvents } from '../lib/events';
 import { cn } from '../lib/utils';
 import { KidPreferences, UserProfile, WeekendPlan } from '../types';
 
@@ -42,6 +43,7 @@ export function PlannerPage() {
   const [vibe, setVibe] = React.useState<KidPreferences['vibe']>('active');
 
   const [isLoading, setIsLoading] = React.useState(false);
+  const [loadingMessage, setLoadingMessage] = React.useState('');
   const [plan, setPlan] = React.useState<WeekendPlan | null>(null);
   const [error, setError] = React.useState<string | null>(null);
 
@@ -85,7 +87,10 @@ export function PlannerPage() {
         typicalInterests: profile.typicalInterests,
         restrictions: profile.restrictions,
       };
-      const result = await generateWeekendPlan(prefs);
+      setLoadingMessage('Finding live events near you…');
+      const liveEvents = await fetchLiveEvents(targetLocality, profile.kids);
+      setLoadingMessage('Building your weekend plan…');
+      const result = await generateWeekendPlan(prefs, liveEvents);
       setPlan(result);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
@@ -252,7 +257,7 @@ export function PlannerPage() {
             className="w-full py-4 bg-terracotta-500 text-cream-50 rounded-full font-bold text-lg border-2 border-ink-900 shadow-[0_6px_0_#1A140E] hover:bg-terracotta-600 hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[0_3px_0_#1A140E] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none flex items-center justify-center gap-3 font-sans"
           >
             {isLoading ? (
-              <><div className="w-5 h-5 border-[3px] border-cream-50/30 border-t-cream-50 rounded-full animate-spin" /> Planning your weekend…</>
+              <><div className="w-5 h-5 border-[3px] border-cream-50/30 border-t-cream-50 rounded-full animate-spin" /> {loadingMessage || 'Planning your weekend…'}</>
             ) : (
               'Plan my weekend'
             )}

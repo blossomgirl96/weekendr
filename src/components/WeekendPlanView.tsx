@@ -104,7 +104,7 @@ export function WeekendPlanView({ plan, onBack }: Props) {
         doc.setFont('helvetica', 'bold');
         doc.text(`Drive: ${activity.driveTime}`, x, y); y += 5;
         doc.text(`Entry: ${activity.cost.entry}`, x, y); y += 5;
-        doc.text(`Food: ${activity.cost.food}`, x, y); y += 5;
+        doc.text(`Parking: ${activity.cost.parking}`, x, y); y += 5;
         if (activity.tip) {
           doc.setFont('helvetica', 'italic');
           const tipLines = doc.splitTextToSize(`Tip: ${activity.tip}`, (pageWidth / 2) - 30);

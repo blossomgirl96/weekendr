@@ -1,5 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { KidPreferences, WeekendPlan } from "../types";
+import { KidPreferences, LiveEvent, WeekendPlan } from "../types";
 
 const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY || "",
@@ -35,6 +35,18 @@ const activitySchema = {
       type: "string",
       description: "Short descriptive search phrase for a relevant stock photo (e.g., 'San Francisco Golden Gate Park children playing')",
     },
+    eventImageUrl: {
+      type: "string",
+      description: "Direct image URL from a live event listing — only populate for activities sourced from a live event.",
+    },
+    eventSource: {
+      type: "string",
+      description: "Source aggregator for live events: 'ticketmaster' or 'eventbrite'. Omit for non-event activities.",
+    },
+    eventUrl: {
+      type: "string",
+      description: "Direct URL to the event's ticket or info page. Only populate for live event activities.",
+    },
   },
   required: ["title", "description", "location", "time", "cost", "driveTime", "whyItsGreat", "ageSuitability", "isIndoor", "tip", "imageQuery"],
 };
@@ -67,7 +79,7 @@ const weekendPlanTool: Anthropic.Tool = {
   },
 };
 
-export async function generateWeekendPlan(prefs: KidPreferences): Promise<WeekendPlan> {
+export async function generateWeekendPlan(prefs: KidPreferences, liveEvents?: LiveEvent[]): Promise<WeekendPlan> {
   const response = await client.messages.create({
     model: "claude-sonnet-4-6",
     max_tokens: 4096,
@@ -105,7 +117,19 @@ Profile interests: ${prefs.typicalInterests || 'Not specified'}
 This weekend specifically: ${prefs.weekendInterests || 'General family fun'}
 Restrictions/Accessibility: ${prefs.restrictions || 'None specified'}
 
-Find real, currently active places or events in the Target Locality. Include 2-3 primary activities per day.`,
+Find real, currently active places or events in the Target Locality. Include 2-3 primary activities per day.${liveEvents && liveEvents.length > 0 ? `
+
+LIVE EVENTS THIS WEEKEND IN ${prefs.targetLocality}:
+${JSON.stringify(liveEvents, null, 2)}
+
+INSTRUCTIONS FOR LIVE EVENTS:
+- Prioritize incorporating these as primary activities where they match the user's criteria (vibe, budget, age suitability).
+- Use the provided title, venue, date, time, and priceRange exactly — do not alter or fabricate event details.
+- Set eventUrl to the event's provided eventUrl.
+- Set eventImageUrl to the event's provided imageUrl (if present).
+- Set eventSource to the event's provided source field.
+- For events without a provided imageUrl, generate an appropriate imageQuery as usual.
+- If no events fit the criteria, fall back to your standard location-based suggestions and leave eventUrl/eventImageUrl/eventSource empty.` : ''}`,
       },
     ],
     tools: [weekendPlanTool],

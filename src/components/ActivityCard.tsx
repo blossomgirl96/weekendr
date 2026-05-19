@@ -23,8 +23,12 @@ export function ActivityCard({ activity, index }: Props) {
 
   React.useEffect(() => {
     setActiveModal(null);
-    setImageUrl('');
     setImgStage('places');
+    if (activity.eventImageUrl) {
+      setImageUrl(activity.eventImageUrl);
+      return;
+    }
+    setImageUrl('');
     const title = activity.title ?? '';
     const location = activity.location ?? '';
     const query = `${title} ${location}`.trim();
@@ -71,7 +75,7 @@ export function ActivityCard({ activity, index }: Props) {
     };
 
     fetchPhoto();
-  }, [activity.title, activity.location, index]);
+  }, [activity.title, activity.location, activity.eventImageUrl, index]);
 
   const handleImgError = () => {
     const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string;
@@ -98,6 +102,7 @@ export function ActivityCard({ activity, index }: Props) {
   const mapsUrl = (!activity.mapsUrl || isShortened)
     ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${activity.title ?? ''} ${activity.location ?? ''}`.trim())}`
     : activity.mapsUrl;
+  const externalUrl = activity.eventUrl ?? mapsUrl;
   const cost = activity.cost ?? { entry: '—', parking: '—', total: 0 };
 
   return (
@@ -117,8 +122,15 @@ export function ActivityCard({ activity, index }: Props) {
         ) : (
           <div className="w-full h-full animate-pulse bg-gradient-to-r from-cream-100 via-cream-200 to-cream-100" />
         )}
-        <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-terracotta-600 shadow-sm font-sans">
-          {activity.isIndoor ? 'Indoor' : 'Outdoor'}
+        <div className="absolute top-4 left-4 flex gap-2">
+          <span className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-terracotta-600 shadow-sm font-sans">
+            {activity.isIndoor ? 'Indoor' : 'Outdoor'}
+          </span>
+          {activity.eventSource && (
+            <span className="bg-pine-500/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-white shadow-sm font-sans">
+              Live
+            </span>
+          )}
         </div>
       </div>
 
@@ -126,7 +138,7 @@ export function ActivityCard({ activity, index }: Props) {
         <div className="flex justify-between items-start gap-4 shrink-0">
           <h3 className="text-lg font-bold text-ink-900 leading-tight font-sans">{activity.title}</h3>
           <a
-            href={mapsUrl}
+            href={externalUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 bg-terracotta-50 text-terracotta-500 rounded-full hover:bg-terracotta-500 hover:text-white transition-colors shrink-0"
@@ -171,9 +183,6 @@ export function ActivityCard({ activity, index }: Props) {
                 <span className="text-ink-900 block truncate text-xs font-mono">{item.content}</span>
               </button>
             ))}
-          </div>
-          <div className="text-right font-mono font-bold text-pine-500 text-sm">
-            Total: ${cost.total ?? 0}
           </div>
         </div>
 
