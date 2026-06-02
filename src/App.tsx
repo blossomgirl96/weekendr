@@ -5,6 +5,7 @@ import { LandingPage } from './pages/LandingPage';
 import { AuthPage } from './pages/AuthPage';
 import { PlannerPage } from './pages/PlannerPage';
 import { ProfilePage } from './pages/ProfilePage';
+import { SavedPlansPage } from './pages/SavedPlansPage';
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="/app" element={<PlannerPage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/saved-plans" element={<SavedPlansPage />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

@@ -57,12 +57,8 @@ async function fetchTicketmasterEvents(
   saturdayISO: string,
   sundayISO: string
 ): Promise<LiveEvent[]> {
-  const apiKey = import.meta.env.VITE_TICKETMASTER_API_KEY as string;
-  if (!apiKey) return [];
-
   const city = parseCityFromLocality(targetLocality);
   const params = new URLSearchParams({
-    apikey: apiKey,
     city,
     startDateTime: saturdayISO,
     endDateTime: sundayISO,
@@ -71,7 +67,7 @@ async function fetchTicketmasterEvents(
   });
 
   try {
-    const res = await fetch(`https://app.ticketmaster.com/discovery/v2/events.json?${params}`);
+    const res = await fetch(`/api/events/ticketmaster?${params}`);
     if (!res.ok) {
       console.warn(`[events] Ticketmaster ${res.status}:`, await res.text());
       return [];
@@ -115,9 +111,6 @@ async function fetchEventbriteEvents(
   saturdayISO: string,
   sundayISO: string
 ): Promise<LiveEvent[]> {
-  const token = import.meta.env.VITE_EVENTBRITE_TOKEN as string;
-  if (!token) return [];
-
   // Category 115 = Family & Education on Eventbrite
   const params = new URLSearchParams({
     'location.address': targetLocality,
@@ -130,8 +123,7 @@ async function fetchEventbriteEvents(
   });
 
   try {
-    // Routed via Vite proxy — proxy injects Authorization: Bearer header to avoid CORS
-    const res = await fetch(`/api/eventbrite/events/search/?${params}`);
+    const res = await fetch(`/api/events/eventbrite?${params}`);
     if (!res.ok) {
       console.warn(`[events] Eventbrite ${res.status}:`, await res.text());
       return [];

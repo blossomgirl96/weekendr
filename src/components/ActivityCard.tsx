@@ -32,17 +32,12 @@ export function ActivityCard({ activity, index }: Props) {
     const title = activity.title ?? '';
     const location = activity.location ?? '';
     const query = `${title} ${location}`.trim();
-    const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string;
 
     const fetchPhoto = async () => {
       try {
-        const res = await fetch('https://places.googleapis.com/v1/places:searchText', {
+        const res = await fetch('/api/places/search', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Goog-Api-Key': apiKey,
-            'X-Goog-FieldMask': 'places.photos',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ textQuery: query, maxResultCount: 1 }),
         });
         if (!mountedRef.current) return;
@@ -50,9 +45,7 @@ export function ActivityCard({ activity, index }: Props) {
           const data = await res.json();
           const photoName = data?.places?.[0]?.photos?.[0]?.name;
           if (photoName) {
-            const mediaRes = await fetch(
-              `https://places.googleapis.com/v1/${photoName}/media?maxWidthPx=800&maxHeightPx=400&key=${apiKey}&skipHttpRedirect=true`
-            );
+            const mediaRes = await fetch(`/api/places/photo?name=${encodeURIComponent(photoName)}`);
             if (!mountedRef.current) return;
             if (mediaRes.ok) {
               const mediaData = await mediaRes.json();
@@ -69,16 +62,13 @@ export function ActivityCard({ activity, index }: Props) {
 
       if (!mountedRef.current) return;
       setImgStage('streetview');
-      setImageUrl(
-        `https://maps.googleapis.com/maps/api/streetview?size=800x400&location=${encodeURIComponent(query)}&key=${apiKey}`
-      );
+      setImageUrl(`/api/places/streetview?location=${encodeURIComponent(query)}`);
     };
 
     fetchPhoto();
   }, [activity.title, activity.location, activity.eventImageUrl, index]);
 
   const handleImgError = () => {
-    const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string;
     const title = activity.title ?? '';
     const location = activity.location ?? '';
     const query = `${title} ${location}`.trim();
@@ -86,9 +76,7 @@ export function ActivityCard({ activity, index }: Props) {
 
     if (imgStage === 'places') {
       setImgStage('streetview');
-      setImageUrl(
-        `https://maps.googleapis.com/maps/api/streetview?size=800x400&location=${encodeURIComponent(query)}&key=${apiKey}`
-      );
+      setImageUrl(`/api/places/streetview?location=${encodeURIComponent(query)}`);
     } else if (imgStage === 'streetview') {
       setImgStage('staticmap');
       setImageUrl(`https://source.unsplash.com/featured/800x400?${unsplashQuery}`);
@@ -239,6 +227,7 @@ export function ActivityCard({ activity, index }: Props) {
             </div>
           </div>
         )}
+
       </div>
     </div>
   );

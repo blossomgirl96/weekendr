@@ -71,3 +71,13 @@ export interface WeekendPlan {
   sunday: DayPlan;
   weatherForecast: string;
 }
+
+export interface SavedPlan {
+  id: string;
+  plan: WeekendPlan;
+  targetLocality: string;
+  weekendDate: string;
+  savedAt: string;
+  status: 'saved' | 'visited';
+  rating?: number; // 1–5
+}

@@ -1,15 +1,11 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import {defineConfig, loadEnv} from 'vite';
+import { defineConfig } from 'vite';
 
-export default defineConfig(({mode}) => {
-  const env = loadEnv(mode, '.', '');
+export default defineConfig(() => {
   return {
     plugins: [react(), tailwindcss()],
-    define: {
-      'process.env.ANTHROPIC_API_KEY': JSON.stringify(env.ANTHROPIC_API_KEY),
-    },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
@@ -20,13 +16,11 @@ export default defineConfig(({mode}) => {
       // Do not modify — file watching is disabled to prevent flickering during agent edits.
       hmr: process.env.DISABLE_HMR !== 'true',
       proxy: {
-        '/api/eventbrite': {
-          target: 'https://www.eventbriteapi.com',
+        // All /api/* calls are forwarded to the Express server (server.ts).
+        // This keeps every secret API key out of the browser bundle.
+        '/api': {
+          target: 'http://localhost:3001',
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api\/eventbrite/, '/v3'),
-          headers: {
-            'Authorization': `Bearer ${env.VITE_EVENTBRITE_TOKEN ?? ''}`,
-          },
         },
       },
     },

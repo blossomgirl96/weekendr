@@ -1,23 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
-import { MapPin, Info } from 'lucide-react';
+import { Info } from 'lucide-react';
 import { db } from '../lib/firebase';
 import { useAuth } from '../contexts/AuthContext';
 import { AppHeader } from '../components/AppHeader';
 import { WeekendPlanView } from '../components/WeekendPlanView';
 import { generateWeekendPlan } from '../lib/claude';
 import { fetchLiveEvents } from '../lib/events';
+import { usePlacesAutocomplete } from '../hooks/usePlacesAutocomplete';
 import { cn } from '../lib/utils';
 import { KidPreferences, UserProfile, WeekendPlan } from '../types';
-
-const POPULAR_CITIES = [
-  'Atlanta, GA', 'Austin, TX', 'Boston, MA', 'Chicago, IL', 'Dallas, TX',
-  'Denver, CO', 'Houston, TX', 'Las Vegas, NV', 'Los Angeles, CA', 'Miami, FL',
-  'Nashville, TN', 'New York, NY', 'Orlando, FL', 'Philadelphia, PA', 'Phoenix, AZ',
-  'Portland, OR', 'San Diego, CA', 'San Francisco, CA', 'Seattle, WA', 'Washington, D.C.',
-  'London, UK', 'Paris, FR', 'Tokyo, JP', 'Sydney, AU', 'Toronto, CA', 'Vancouver, CA',
-];
 
 const INTERESTS = ['Outdoors', 'Animals', 'Science', 'Art', 'Active Play', 'Music', 'History', 'Food', 'Sports'];
 const VIBES = [
@@ -34,8 +27,8 @@ export function PlannerPage() {
 
   // Form state
   const [targetLocality, setTargetLocality] = React.useState('');
-  const [suggestions, setSuggestions] = React.useState<string[]>([]);
-  const [showSuggestions, setShowSuggestions] = React.useState(false);
+  const [locationConfirmed, setLocationConfirmed] = React.useState(false);
+  const locationInputRef = React.useRef<HTMLInputElement>(null);
   const [weekendInterests, setWeekendInterests] = React.useState('');
   const [selectedInterests, setSelectedInterests] = React.useState<string[]>([]);
   const [budgetCeiling, setBudgetCeiling] = React.useState(100);
@@ -54,23 +47,17 @@ export function PlannerPage() {
     });
   }, [user]);
 
-  const handleTargetChange = (val: string) => {
-    setTargetLocality(val);
-    if (val.length >= 2) {
-      setSuggestions(POPULAR_CITIES.filter(c => c.toLowerCase().startsWith(val.toLowerCase())));
-      setShowSuggestions(true);
-    } else {
-      setSuggestions([]);
-      setShowSuggestions(false);
-    }
-  };
+  usePlacesAutocomplete(locationInputRef, (place) => {
+    setTargetLocality(place);
+    setLocationConfirmed(true);
+  });
 
   const toggleInterest = (i: string) =>
     setSelectedInterests(prev => prev.includes(i) ? prev.filter(x => x !== i) : [...prev, i]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!targetLocality || !profile) return;
+    if (!targetLocality || !locationConfirmed || !profile) return;
     setPlan(null);
     setIsLoading(true);
     setError(null);
@@ -105,7 +92,7 @@ export function PlannerPage() {
       <div className="min-h-screen bg-cream-50">
         <AppHeader />
         <main className="max-w-7xl mx-auto px-4 py-12">
-          <WeekendPlanView plan={plan} onBack={() => setPlan(null)} />
+          <WeekendPlanView plan={plan} targetLocality={targetLocality} onBack={() => setPlan(null)} />
         </main>
       </div>
     );
@@ -126,34 +113,27 @@ export function PlannerPage() {
 
         <form onSubmit={handleSubmit} className="space-y-8 bg-white p-8 rounded-[18px] border border-cream-200 shadow-[0_4px_10px_-2px_rgba(38,31,24,0.08)]">
           {/* Target locality */}
-          <div className="space-y-2 relative">
+          <div className="space-y-2">
             <label className="text-sm font-bold text-ink-600 uppercase tracking-[0.08em] font-sans block">Where to this weekend?</label>
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="City or neighborhood to explore"
-                value={targetLocality}
-                onChange={(e) => handleTargetChange(e.target.value)}
-                onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
-                className="w-full px-4 py-3 rounded-xl border border-cream-200 bg-cream-100 text-ink-900 placeholder:text-ink-400 outline-none focus:ring-[3px] focus:ring-sky-500/50 focus:border-transparent transition-all font-sans"
-                required
-              />
-              {showSuggestions && suggestions.length > 0 && (
-                <div className="absolute z-50 w-full mt-1 bg-white border border-cream-200 rounded-xl shadow-[0_12px_24px_-8px_rgba(38,31,24,0.14)] overflow-hidden">
-                  {suggestions.map((city) => (
-                    <button
-                      key={city}
-                      type="button"
-                      onClick={() => { setTargetLocality(city); setShowSuggestions(false); }}
-                      className="w-full text-left px-4 py-3 hover:bg-sky-50 text-ink-900 transition-colors flex items-center gap-3 border-b border-cream-100 last:border-0 font-sans text-sm"
-                    >
-                      <MapPin className="w-4 h-4 text-sky-400" />
-                      {city}
-                    </button>
-                  ))}
-                </div>
+            <input
+              ref={locationInputRef}
+              type="text"
+              placeholder="City or neighborhood to explore"
+              value={targetLocality}
+              onChange={(e) => {
+                setTargetLocality(e.target.value);
+                setLocationConfirmed(false);
+              }}
+              className={cn(
+                'w-full px-4 py-3 rounded-xl border bg-cream-100 text-ink-900 placeholder:text-ink-400 outline-none focus:ring-[3px] focus:border-transparent transition-all font-sans',
+                targetLocality && !locationConfirmed
+                  ? 'border-terracotta-300 focus:ring-terracotta-500/50'
+                  : 'border-cream-200 focus:ring-sky-500/50'
               )}
-            </div>
+            />
+            {targetLocality && !locationConfirmed && (
+              <p className="text-xs text-terracotta-500 font-sans">Select a place from the suggestions to continue.</p>
+            )}
           </div>
 
           {/* Weekend interests */}
@@ -253,7 +233,7 @@ export function PlannerPage() {
 
           <button
             type="submit"
-            disabled={isLoading || !profile}
+            disabled={isLoading || !profile || !locationConfirmed}
             className="w-full py-4 bg-terracotta-500 text-cream-50 rounded-full font-bold text-lg border-2 border-ink-900 shadow-[0_6px_0_#1A140E] hover:bg-terracotta-600 hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[0_3px_0_#1A140E] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none flex items-center justify-center gap-3 font-sans"
           >
             {isLoading ? (

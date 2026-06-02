@@ -1,12 +1,13 @@
 import React from 'react';
-import { Calendar, ArrowLeft, Download, CloudRain, ShieldCheck, Sun, Loader2 } from 'lucide-react';
-import { WeekendPlan, DayPlan } from '../types';
+import { Calendar, ArrowLeft, CloudRain, Sun, Loader2, Bookmark, BookmarkCheck, ShieldCheck } from 'lucide-react';
+import { WeekendPlan, DayPlan, Activity } from '../types';
 import { ActivityCard } from './ActivityCard';
 import { motion, AnimatePresence } from 'motion/react';
-import jsPDF from 'jspdf';
+import { useSavedPlans } from '../hooks/useSavedPlans';
 
 interface Props {
   plan: WeekendPlan;
+  targetLocality: string;
   onBack: () => void;
 }
 
@@ -22,10 +23,19 @@ function getUpcomingWeekend(): string {
   return `${satStr}–${sun.getDate()}`;
 }
 
-function DaySection({ day, plan, accent, isSunday }: { day: string; plan: DayPlan; accent: 'terracotta' | 'pine'; isSunday?: boolean }) {
+interface DaySectionProps {
+  day: string;
+  plan: DayPlan;
+  accent: 'terracotta' | 'pine';
+  isSunday?: boolean;
+}
+
+function DaySection({ day, plan, accent, isSunday }: DaySectionProps) {
   const iconBg = accent === 'terracotta' ? 'bg-terracotta-50' : 'bg-pine-50';
   const iconColor = accent === 'terracotta' ? 'text-terracotta-500' : 'text-pine-500';
   const subtitle = isSunday ? 'Keep the momentum.' : "Let's make it count.";
+  const primaryActivities = plan?.primary ?? [];
+  const planBActivities = plan?.planB ?? [];
 
   return (
     <motion.div
@@ -44,8 +54,12 @@ function DaySection({ day, plan, accent, isSunday }: { day: string; plan: DayPla
       </div>
 
       <div className="space-y-8">
-        {(plan.primary ?? []).map((activity, idx) => (
-          <ActivityCard key={`${day}-primary-${activity.title ?? idx}`} activity={activity} index={idx} />
+        {primaryActivities.map((activity: Activity, idx: number) => (
+          <ActivityCard
+            key={`${day}-primary-${activity.title ?? idx}`}
+            activity={activity}
+            index={idx}
+          />
         ))}
       </div>
 
@@ -56,8 +70,12 @@ function DaySection({ day, plan, accent, isSunday }: { day: string; plan: DayPla
           <p className="text-[11px] font-bold text-pine-500 uppercase tracking-[0.1em] font-sans">Plan B — Indoor backup</p>
         </div>
         <div className="grid grid-cols-1 gap-6">
-          {(plan.planB ?? []).map((activity, idx) => (
-            <ActivityCard key={`${day}-planB-${activity.title ?? idx}`} activity={activity} index={idx} />
+          {planBActivities.map((activity: Activity, idx: number) => (
+            <ActivityCard
+              key={`${day}-planB-${activity.title ?? idx}`}
+              activity={activity}
+              index={idx}
+            />
           ))}
         </div>
       </div>
@@ -65,78 +83,19 @@ function DaySection({ day, plan, accent, isSunday }: { day: string; plan: DayPla
   );
 }
 
-export function WeekendPlanView({ plan, onBack }: Props) {
-  const [isExporting, setIsExporting] = React.useState(false);
+export function WeekendPlanView({ plan, targetLocality, onBack }: Props) {
   const [activeDay, setActiveDay] = React.useState<'saturday' | 'sunday'>('saturday');
+  const [isSaving, setIsSaving] = React.useState(false);
+  const [hasSaved, setHasSaved] = React.useState(false);
+  const { savePlan } = useSavedPlans();
 
-  const handleDownloadPDF = async () => {
-    setIsExporting(true);
+  const handleSavePlan = async () => {
+    setIsSaving(true);
     try {
-      const doc = new jsPDF('p', 'mm', 'a4');
-      const margin = 20;
-      let y = 25;
-      const pageWidth = doc.internal.pageSize.getWidth();
-
-      doc.setFillColor(216, 95, 42);
-      doc.rect(0, 0, pageWidth, 40, 'F');
-      doc.setTextColor(251, 247, 241);
-      doc.setFontSize(24);
-      doc.setFont('helvetica', 'bold');
-      doc.text('SUNDAE ITINERARY', margin, 25);
-      doc.setFontSize(10);
-      doc.setFont('helvetica', 'normal');
-      doc.text(`Generated on ${new Date().toLocaleDateString()}`, margin, 32);
-
-      const addActivity = (activity: any, x: number) => {
-        if (y > 250) { doc.addPage(); y = 30; }
-        doc.setTextColor(26, 20, 14);
-        doc.setFontSize(14);
-        doc.setFont('helvetica', 'bold');
-        doc.text(activity.title, x, y);
-        y += 7;
-        doc.setTextColor(92, 84, 71);
-        doc.setFontSize(10);
-        doc.setFont('helvetica', 'normal');
-        const desc = doc.splitTextToSize(activity.description, (pageWidth / 2) - 30);
-        doc.text(desc, x, y);
-        y += (desc.length * 5) + 5;
-        doc.setFontSize(9);
-        doc.setFont('helvetica', 'bold');
-        doc.text(`Drive: ${activity.driveTime}`, x, y); y += 5;
-        doc.text(`Entry: ${activity.cost.entry}`, x, y); y += 5;
-        doc.text(`Parking: ${activity.cost.parking}`, x, y); y += 5;
-        if (activity.tip) {
-          doc.setFont('helvetica', 'italic');
-          const tipLines = doc.splitTextToSize(`Tip: ${activity.tip}`, (pageWidth / 2) - 30);
-          doc.text(tipLines, x, y);
-          doc.setFont('helvetica', 'normal');
-          y += (tipLines.length * 5) + 5;
-        } else {
-          y += 5;
-        }
-      };
-
-      y = 55;
-      doc.setTextColor(216, 95, 42);
-      doc.setFontSize(18);
-      doc.setFont('helvetica', 'bold');
-      doc.text('SATURDAY', margin, y);
-      y += 15;
-      plan.saturday.primary.forEach(a => addActivity(a, margin));
-
-      if (y > 200) { doc.addPage(); y = 30; } else { y += 10; }
-      doc.setTextColor(44, 94, 42);
-      doc.setFontSize(18);
-      doc.setFont('helvetica', 'bold');
-      doc.text('SUNDAY', margin, y);
-      y += 15;
-      plan.sunday.primary.forEach(a => addActivity(a, margin));
-
-      doc.save(`Sundae-Plan-${Date.now()}.pdf`);
-    } catch {
-      window.print();
+      await savePlan(plan, targetLocality);
+      setHasSaved(true);
     } finally {
-      setIsExporting(false);
+      setIsSaving(false);
     }
   };
 
@@ -158,19 +117,9 @@ export function WeekendPlanView({ plan, onBack }: Props) {
           Back to planner
         </button>
 
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 px-4 py-2 bg-sky-50 text-sky-600 rounded-xl font-bold text-sm border border-sky-100 font-sans">
-            <CloudRain className="w-4 h-4" />
-            {getUpcomingWeekend()} · {plan.weatherForecast}
-          </div>
-          <button
-            onClick={handleDownloadPDF}
-            disabled={isExporting}
-            className="flex items-center gap-2 px-5 py-2.5 bg-ink-900 text-cream-50 rounded-xl font-bold text-sm hover:bg-ink-600 transition-all shadow-sm hover:scale-105 active:scale-95 disabled:opacity-50 font-sans"
-          >
-            {isExporting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
-            {isExporting ? 'Creating PDF…' : 'Save plan'}
-          </button>
+        <div className="flex items-center gap-2 px-4 py-2 bg-sky-50 text-sky-600 rounded-xl font-bold text-sm border border-sky-100 font-sans">
+          <CloudRain className="w-4 h-4" />
+          {getUpcomingWeekend()} · {plan.weatherForecast}
         </div>
       </div>
 
@@ -209,6 +158,21 @@ export function WeekendPlanView({ plan, onBack }: Props) {
             }
           </motion.div>
         </AnimatePresence>
+      </div>
+
+      {/* Plan-level save CTA */}
+      <div className="flex justify-center pt-4 no-print">
+        <button
+          onClick={handleSavePlan}
+          disabled={isSaving || hasSaved}
+          className="px-8 py-3.5 bg-terracotta-500 text-cream-50 rounded-full font-bold text-sm border-2 border-ink-900 shadow-[0_6px_0_#1A140E] hover:bg-terracotta-600 hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[0_3px_0_#1A140E] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none font-sans flex items-center gap-2"
+        >
+          {isSaving
+            ? <><Loader2 className="w-4 h-4 animate-spin" /> Saving…</>
+            : hasSaved
+            ? <><BookmarkCheck className="w-4 h-4" /> Plan Saved</>
+            : <><Bookmark className="w-4 h-4" /> Save This Weekend Plan</>}
+        </button>
       </div>
     </div>
   );
